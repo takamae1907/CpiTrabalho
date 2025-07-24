@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const saveReminderBtn = document.getElementById("save-reminder");
     const deleteReminderBtn = document.getElementById("delete-reminder");
 
-    // NOVO: Referência ao botão de voltar
+  
     const backButton = document.getElementById("back-button");
 
     let date = new Date();
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currMonth = date.getMonth();
     let selectedDateKey = null;
 
-    // Carrega lembretes do localStorage ou inicia um objeto vazio
+   
     let reminders = JSON.parse(localStorage.getItem("reminders")) || {};
 
     const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho",
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentDateTag.innerText = `${months[currMonth]} ${currYear}`;
         daysTag.innerHTML = liTag;
 
-        // Adiciona os eventos de clique aos dias novamente após renderizar
+      
         addDayClickEvents();
     }
 
@@ -62,11 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 selectedDateKey = day.dataset.date;
                 const [year, month, dayNum] = selectedDateKey.split('-');
                 
-                // Atualiza a nota na lateral
+             
                 noteTitle.innerText = `Lembretes de ${dayNum} de ${months[month - 1]}`;
                 noteBody.innerText = reminders[selectedDateKey] || "Nenhum lembrete para este dia. Clique novamente para adicionar um.";
 
-                // Abre o modal
+            
                 openModal(selectedDateKey);
             });
         });
@@ -88,13 +88,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (text) {
             reminders[selectedDateKey] = text;
         } else {
-            // Se o texto estiver vazio, remove o lembrete
+          
             delete reminders[selectedDateKey];
         }
         localStorage.setItem("reminders", JSON.stringify(reminders));
         closeModal();
         renderCalendar();
-        // Atualiza a nota lateral após salvar
+       
         noteBody.innerText = reminders[selectedDateKey] || "Lembrete salvo! Clique em outro dia para ver.";
     }
     
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         noteBody.innerText = "Lembrete excluído.";
     }
 
-    // Navegação entre meses
+ 
     prevNextIcon.forEach(icon => {
         icon.addEventListener("click", () => {
             currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Eventos do Modal
+    
     closeModalBtn.addEventListener('click', closeModal);
     saveReminderBtn.addEventListener('click', saveReminder);
     deleteReminderBtn.addEventListener('click', deleteReminder);
@@ -131,10 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderCalendar();
 
-    // NOVO: Event Listener para o botão de voltar
-    if (backButton) { // Adicione esta verificação para evitar erros se o botão não for encontrado
+    if (backButton) { 
         backButton.addEventListener("click", () => {
-            history.back(); // Esta função do navegador faz a página voltar na história
+            history.back();
         });
     }
 });

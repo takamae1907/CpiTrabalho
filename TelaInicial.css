@@ -1,14 +1,13 @@
-/* Importação de fontes (opcional, mas ajuda a replicar o estilo) */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --dark-bg: #212121; /* Cor de fundo escura, como na imagem */
-    --card-bg: #2C2C2E; /* Cor de fundo dos cards */
-    --text-color: #E0E0E0; /* Cor do texto principal */
-    --light-text: #99A0AA; /* Cor para texto mais suave/secundário */
-    --plus-color: #4CAF50; /* Verde para o ícone de adição */
-    --border-radius-lg: 18px; /* Raio da borda maior para os cards */
-    --border-radius-sm: 8px; /* Raio da borda menor */
+    --dark-bg: #212121;
+    --card-bg: #2C2C2E;
+    --text-color: #E0E0E0;
+    --light-text: #99A0AA;
+    --plus-color: #4CAF50;
+    --border-radius-lg: 18px;
+    --border-radius-sm: 8px;
 }
 
 body {
@@ -19,14 +18,14 @@ body {
     color: var(--text-color);
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Alinha o conteúdo ao topo */
+    align-items: flex-start;
     min-height: 100vh;
-    overflow-x: hidden; /* Evita scroll horizontal */
+    overflow-x: hidden;
 }
 
 .dashboard-container {
     padding: 40px 20px;
-    max-width: 1200px; /* Largura máxima do dashboard */
+    max-width: 1200px;
     width: 100%;
 }
 
@@ -34,13 +33,13 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 40px;
-    padding-left: 20px; /* Espaçamento da esquerda */
+    padding-left: 20px;
 }
 
 .header-line {
     width: 4px;
     height: 30px;
-    background-color: var(--plus-color); /* Linha verde */
+    background-color: var(--plus-color);
     margin-right: 15px;
     border-radius: 2px;
 }
@@ -54,10 +53,9 @@ body {
 
 .cards-grid {
     display: grid;
-    /* Ajusta automaticamente o número de colunas com base no tamanho dos cards */
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 25px; /* Espaço entre os cards */
-    justify-content: center; /* Centraliza cards se houver espaço extra */
+    gap: 25px;
+    justify-content: center;
 }
 
 .card {
@@ -68,9 +66,9 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    aspect-ratio: 1 / 1; /* Faz o card ser quadrado */
-    position: relative; /* Para posicionar o ícone de adição */
-    overflow: hidden; /* Garante que nada saia do card */
+    aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: hidden;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -81,68 +79,65 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Ícone de adição no canto superior direito */
 .add-icon {
     position: absolute;
     top: 15px;
     right: 15px;
-    color: var(--light-text); /* Cor inicial do '+' */
+    color: var(--light-text);
     font-size: 1.2em;
-    opacity: 0; /* Começa invisível */
-    transition: opacity 0.3s ease, color 0.3s ease; /* Transição para o hover */
+    opacity: 0;
+    transition: opacity 0.3s ease, color 0.3s ease;
 }
 
 .card:hover .add-icon {
-    opacity: 1; /* Fica visível no hover */
-    color: var(--plus-color); /* Muda para verde no hover */
+    opacity: 1;
+    color: var(--plus-color);
 }
 
 .card-content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Alinha ícone e título à esquerda */
-    width: 100%; /* Ocupa a largura total do card */
-    height: 100%; /* Ocupa a altura total para alinhamento vertical */
-    justify-content: flex-end; /* Alinha o conteúdo à parte inferior do card */
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
 }
 
 .card-icon {
-    font-size: 3em; /* Tamanho do ícone principal */
+    font-size: 3em;
     color: var(--text-color);
     margin-bottom: 15px;
-    align-self: flex-start; /* Garante que o ícone fique à esquerda */
+    align-self: flex-start;
 }
 
 .card h2 {
     font-size: 1.3em;
     font-weight: 500;
     color: var(--text-color);
-    margin: 0; /* Remove margem padrão */
+    margin: 0;
     line-height: 1.3;
-    text-align: left; /* Garante alinhamento à esquerda */
+    text-align: left;
 }
 
-/* Estilo específico para o card vazio */
 .empty-card {
-    background-color: var(--card-bg); /* Pode ser a mesma cor ou um pouco diferente */
+    background-color: var(--card-bg);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .empty-card .add-icon {
-    position: static; /* Volta o ícone para a posição normal de um flex item */
-    opacity: 1; /* Sempre visível no card vazio */
-    font-size: 3em; /* Ícone maior para o card vazio */
+    position: static;
+    opacity: 1;
+    font-size: 3em;
     color: var(--light-text);
-    transition: color 0.3s ease; /* Transição de cor no hover */
+    transition: color 0.3s ease;
 }
 
 .empty-card:hover .add-icon {
-    color: var(--plus-color); /* Muda para verde no hover */
+    color: var(--plus-color);
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .dashboard-container {
         padding: 25px 15px;
@@ -150,8 +145,8 @@ body {
 
     .dashboard-header {
         margin-bottom: 30px;
-        padding-left: 0; /* Remove padding extra em telas pequenas */
-        justify-content: center; /* Centraliza o título */
+        padding-left: 0;
+        justify-content: center;
     }
 
     .header-line {
@@ -164,7 +159,7 @@ body {
     }
 
     .cards-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Cards menores */
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 15px;
     }
 
@@ -195,14 +190,17 @@ body {
     .dashboard-container {
         padding: 20px 10px;
     }
+
     .dashboard-header h1 {
         font-size: 1.5em;
     }
+
     .cards-grid {
-        grid-template-columns: 1fr; /* Uma coluna em telas muito pequenas */
+        grid-template-columns: 1fr;
     }
+
     .card {
-        max-width: 300px; /* Limita a largura dos cards em uma coluna */
-        margin: 0 auto; /* Centraliza os cards em uma coluna */
+        max-width: 300px;
+        margin: 0 auto;
     }
 }

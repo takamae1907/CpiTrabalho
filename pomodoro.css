@@ -1,4 +1,4 @@
-/* Estilos específicos para a página do Pomodoro */
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--background-color);
@@ -23,7 +23,7 @@ header {
     color: var(--text-color);
     padding: 1.5rem 2rem;
     display: flex;
-    justify-content: space-between; /* Mantém o título à esquerda e o grupo de botões à direita */
+    justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 4px var(--shadow-color);
     flex-wrap: wrap;
@@ -31,17 +31,16 @@ header {
 }
 
 header h1 {
-    /* Removido margin-bottom e margin-left problemáticos */
-    margin: 0; /* Garante que não haja margens extras empurrando o h1 */
+   
+    margin: 0;
     font-size: 1.8rem;
-    color: var(--text-color); /* Garante que o título use a cor de texto principal */
-    display: flex; /* Para alinhar o ícone com o texto */
+    color: var(--text-color);
+    display: flex; 
     align-items: center;
-    gap: 8px; /* Espaçamento entre o ícone e o texto */
-    /* Removido `align-items: center;` e `margin-left: -750px;` que estavam duplicados ou incorretos */
+    gap: 8px; 
+   
 }
 
-/* Base */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -61,20 +60,17 @@ body {
 header h1 {
     margin: 0;
     font-size: 1.8rem;
-    color: var(--text-color); /* Garante que o título use a cor de texto principal */
-    display: flex; /* Para alinhar o ícone com o texto */
+    color: var(--text-color); 
+    display: flex;
     align-items: center;
-    gap: 8px; /* Espaçamento entre o ícone e o texto */
+    gap: 8px; 
 }
 
-/* NOVO ESTILO: Ícone do Logo no Header */
 .header-logo-icon {
-    width: 28px; /* Tamanho do ícone */
+    width: 28px; 
     height: 28px;
-    /* As cores são controladas pelo fill e stroke, que por padrão usam currentColor do pai (h1) */
-    /* Você pode sobrescrever aqui se quiser uma cor diferente da do texto do h1 */
-    fill: var(--primary-color); /* Cor de preenchimento do quadrado */
-    stroke: var(--primary-color); /* Cor da borda do quadrado */
+    fill: var(--primary-color); 
+    stroke: var(--primary-color); 
     transition: fill 0.3s ease, stroke 0.3s ease;
 }
 
@@ -83,16 +79,14 @@ body.dark-mode .header-logo-icon {
     stroke: var(--primary-color);
 }
 
-/* Theme Toggle Button */
-/* Theme Toggle Button */
 #theme-toggle {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 10px 15px;
-    background-color: white; /* Cor de fundo no modo CLARO */
-    color: var(--text-color); /* Cor do texto/ícone no modo CLARO (controlado pela variável) */
-    border: 1px solid var(--border-color); /* Cor da borda no modo CLARO (controlado pela variável) */
+    background-color: white;
+    color: var(--text-color); 
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     cursor: pointer;
     font-size: 0.9em;
@@ -102,18 +96,18 @@ body.dark-mode .header-logo-icon {
 }
 
 #theme-toggle:hover {
-    background-color: #b1b1b1; /* Cor de fundo no hover (no modo CLARO) */
+    background-color: #b1b1b1; 
     transform: translateY(-1px);
 }
 
 #theme-toggle {
-    background-color: #8A2BE2; /* Azul violeta */
+    background-color: #8A2BE2; 
     border-color: #9370DB;
-    color: white; /* Garante que o ícone e texto fiquem brancos */
+    color: white;
 }
 
 #theme-toggle:hover {
-    background-color: #9932CC; /* Cor ao passar o mouse */
+    background-color: #9932CC; 
     border-color: #BA55D3;
 }
 
@@ -137,14 +131,14 @@ body:not(.dark-mode) .moon-icon {
     color: skyblue;
 }
 
-/* NOVO BLOCO: Estilos específicos para o botão no MODO ESCURO */
+
 body.dark-mode #theme-toggle{
-    background-color: #4A5568; /* Cinza escuro */
+    background-color: #4A5568; 
     border-color: #718096;
     color: white;
 }
 
-/* --- Formulário de Tarefas --- */
+
 #task-form {
     display: flex;
     flex-wrap: wrap;
@@ -208,7 +202,7 @@ body.dark-mode #theme-toggle{
     background-color: var(--card-background-color);
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    max-width: 500px; /* Limita a largura */
+    max-width: 500px; 
     width: 90%;
 }
 
@@ -219,10 +213,10 @@ body.dark-mode #theme-toggle{
 }
 
 .pomodoro-display {
-    font-size: 6rem; /* Ainda maior para destaque */
+    font-size: 6rem; 
     margin-bottom: 2rem;
     color: var(--primary-color);
-    min-width: unset; /* Remove o min-width para o display global */
+    min-width: unset;
     padding: 0.5rem 2rem;
 }
 
@@ -245,9 +239,9 @@ body.dark-mode #theme-toggle{
     text-align: center;
 }
 
-/* --- Variáveis de Cor (Tema) --- */
+
 :root {
-    /* Modo Claro */
+  
     --background-color: #f0f2f5;
     --text-color: #212529;
     --text-color-light: #5a6268;
@@ -320,9 +314,8 @@ footer {
     box-shadow: 0 -2px 4px var(--shadow-color);
 }
 
-/* ... seus estilos existentes ... */
 
-/* Estilo para o botão de voltar (pode ser o mesmo do theme-toggle) */
+
 #back-button {
     background-color: var(--button-background-color);
     color: var(--button-text-color);
@@ -332,9 +325,9 @@ footer {
     cursor: pointer;
     font-size: 1rem;
     font-weight: 600;
-    display: flex; /* Para alinhar o ícone e o texto */
+    display: flex; 
     align-items: center;
-    gap: 8px; /* Espaçamento entre o ícone e o texto */
+    gap: 8px; 
     transition: background-color 0.3s ease;
 }
 
@@ -343,12 +336,12 @@ footer {
 }
 
 #back-button .icon {
-    width: 20px; /* Tamanho do ícone */
+    width: 20px; 
     height: 20px;
-    color: var(--button-icon-color, var(--button-text-color)); /* Cor do ícone */
+    color: var(--button-icon-color, var(--button-text-color)); 
 }
 
-/* Se você tiver o modo escuro, adicione estilos para ele também */
+
 body.dark-mode #back-button {
     background-color: var(--dark-button-background-color);
     color: var(--dark-button-text-color);
@@ -362,16 +355,13 @@ body.dark-mode #back-button .icon {
     color: var(--dark-button-icon-color, var(--dark-button-text-color));
 }
 
-/* Certifique-se que o grupo de botões está bem alinhado */
+
 .header-buttons-group {
     display: flex;
     align-items: center;
-    gap: 15px; /* Espaçamento entre os botões */
+    gap: 15px;
 }
 
-/* ... o restante do seu CSS ... */
-
-/* Estilos para o Modal de Mensagem */
 .modal-message-text {
     text-align: center;
     margin-bottom: 20px;
@@ -379,8 +369,7 @@ body.dark-mode #back-button .icon {
     color: var(--text-color);
 }
 
-/* Ajustes para o botão OK do modal de mensagem */
 #message-modal-ok-button {
-    margin: 0 auto; /* Centraliza o botão OK */
-    display: block; /* Garante que o margin auto funcione */
+    margin: 0 auto; 
+    display: block; 
 }

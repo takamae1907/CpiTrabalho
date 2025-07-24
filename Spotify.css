@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --primary-bg: #121212; /* Fundo principal escuro */
-    --secondary-bg: #1a1a1a; /* Fundo de seções/cards */
-    --tertiary-bg: #282828; /* Fundo de elementos interativos */
-    --text-color-primary: #ffffff; /* Texto principal branco */
-    --text-color-secondary: #b3b3b3; /* Texto secundário cinza claro */
-    --accent-color: #1DB954; /* Verde Spotify */
-    --youtube-red: #FF0000; /* Vermelho YouTube */
+    --primary-bg: #121212;
+    --secondary-bg: #1a1a1a;
+    --tertiary-bg: #282828;
+    --text-color-primary: #ffffff;
+    --text-color-secondary: #b3b3b3;
+    --accent-color: #1DB954;
+    --youtube-red: #FF0000;
     --border-radius: 8px;
     --card-border-radius: 12px;
 }
@@ -22,7 +22,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow: hidden; /* Esconde barras de rolagem indesejadas */
+    overflow: hidden;
 }
 
 .player-container {
@@ -32,20 +32,19 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     max-width: 1200px;
     width: 95%;
-    height: 80vh; /* Altura fixa para o container principal */
-    overflow: hidden; /* Garante que o conteúdo não vaze */
+    height: 80vh;
+    overflow: hidden;
 }
 
-/* Seção Principal do Player (Esquerda) */
 .main-player {
-    flex: 2; /* Ocupa mais espaço */
+    flex: 2;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 30px;
     background-color: var(--secondary-bg);
-    border-right: 1px solid var(--tertiary-bg); /* Divisor visual */
+    border-right: 1px solid var(--tertiary-bg);
 }
 
 .current-song-card {
@@ -54,7 +53,7 @@ body {
     align-items: center;
     text-align: center;
     width: 100%;
-    max-width: 350px; /* Limita o tamanho do card da música */
+    max-width: 350px;
     margin-bottom: 30px;
 }
 
@@ -64,17 +63,17 @@ body {
     border-radius: var(--card-border-radius);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     margin-bottom: 20px;
-    object-fit: cover; /* Garante que a imagem cubra o espaço */
-    aspect-ratio: 1 / 1; /* Mantém a proporção quadrada */
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
 }
 
 .song-info h2 {
     font-size: 1.8em;
     margin: 0 0 8px 0;
     color: var(--text-color-primary);
-    white-space: nowrap; /* Evita quebra de linha */
-    overflow: hidden; /* Esconde texto que excede */
-    text-overflow: ellipsis; /* Adiciona '...' se o texto for muito longo */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 100%;
 }
 
@@ -90,25 +89,24 @@ body {
 
 .controls-section {
     width: 100%;
-    max-width: 400px; /* Limita a largura dos controles */
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* Estilo para o container do player do YouTube */
 #youtube-player-container {
-    background-color: black; /* Fundo preto para o player */
+    background-color: black;
     border-radius: var(--card-border-radius);
-    overflow: hidden; /* Garante que o vídeo não vaze */
+    overflow: hidden;
     margin-bottom: 20px;
 }
+
 #youtube-player-container iframe {
     width: 100%;
     height: 100%;
     border: none;
 }
-
 
 .progress-bar-container {
     width: 100%;
@@ -117,11 +115,11 @@ body {
     border-radius: 3px;
     margin-bottom: 10px;
     cursor: pointer;
-    transition: opacity 0.3s ease; /* Transição para opacidade */
+    transition: opacity 0.3s ease;
 }
 
 .progress-bar {
-    width: 0%; /* Controlado por JS */
+    width: 0%;
     height: 100%;
     background-color: var(--accent-color);
     border-radius: 3px;
@@ -149,9 +147,9 @@ body {
     color: var(--text-color-primary);
     font-size: 1.5em;
     cursor: pointer;
-    transition: color 0.2s ease, transform 0.1s ease; /* Transição para a animação de clique */
+    transition: color 0.2s ease, transform 0.1s ease;
     padding: 10px;
-    border-radius: 50%; /* Para botões redondos */
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -162,13 +160,12 @@ body {
     transform: scale(1.05);
 }
 
-/* Animação de clique para os botões de controle */
 .control-btn:active {
-    transform: scale(0.9); /* Diminui o tamanho ao ser clicado */
+    transform: scale(0.9);
 }
 
 .control-btn.play {
-    font-size: 2.2em; /* Ícone de play/pause maior */
+    font-size: 2.2em;
     color: var(--accent-color);
 }
 
@@ -183,11 +180,11 @@ body {
     gap: 10px;
     color: var(--text-color-secondary);
     font-size: 1.1em;
-    transition: opacity 0.3s ease; /* Transição para opacidade */
+    transition: opacity 0.3s ease;
 }
 
 .volume-control input[type="range"] {
-    -webkit-appearance: none; /* Remove estilo padrão do navegador */
+    -webkit-appearance: none;
     width: 100px;
     height: 4px;
     background: var(--tertiary-bg);
@@ -206,16 +203,15 @@ body {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
-/* Seção da Playlist (Direita) */
 .playlist-section {
-    flex: 1; /* Ocupa menos espaço */
+    flex: 1;
     padding: 20px;
     display: flex;
     flex-direction: column;
     background-color: var(--primary-bg);
-    overflow-y: auto; /* Rolagem para a playlist */
-    scrollbar-width: thin; /* Para Firefox */
-    scrollbar-color: var(--accent-color) var(--tertiary-bg); /* Para Firefox */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-color) var(--tertiary-bg);
 }
 
 .playlist-section::-webkit-scrollbar {
@@ -234,7 +230,7 @@ body {
 
 .playlist-header {
     display: flex;
-    flex-direction: column; /* Para empilhar os botões de upload */
+    flex-direction: column;
     gap: 15px;
     margin-bottom: 20px;
 }
@@ -262,11 +258,11 @@ body {
     align-items: center;
     gap: 8px;
     transition: background-color 0.2s ease;
-    justify-content: center; /* Centraliza o texto e ícone */
+    justify-content: center;
 }
 
 .upload-btn:hover {
-    background-color: #179c45; /* Tom mais escuro no hover */
+    background-color: #179c45;
 }
 
 .youtube-input-group {
@@ -291,11 +287,11 @@ body {
 }
 
 .youtube-btn {
-    background-color: var(--youtube-red); /* Cor vermelha para o botão YouTube */
+    background-color: var(--youtube-red);
 }
 
 .youtube-btn:hover {
-    background-color: #cc0000; /* Tom mais escuro no hover */
+    background-color: #cc0000;
 }
 
 .playlist-list {
@@ -324,16 +320,16 @@ body {
 .playlist-item.active {
     background-color: var(--tertiary-bg);
     color: var(--text-color-primary);
-    border-left: 3px solid var(--accent-color); /* Indicador de música ativa */
-    padding-left: 12px; /* Ajusta padding por causa da borda */
+    border-left: 3px solid var(--accent-color);
+    padding-left: 12px;
 }
 
 .playlist-item span {
-    flex-grow: 1; /* Ocupa espaço disponível */
+    flex-grow: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-left: 10px; /* Espaço entre o ícone e o texto */
+    margin-left: 10px;
 }
 
 .playlist-item .duration {
@@ -343,11 +339,11 @@ body {
 }
 
 .playlist-item .youtube-icon {
-    color: var(--youtube-red); /* Cor do ícone do YouTube na playlist */
+    color: var(--youtube-red);
 }
 
 .playlist-item .local-icon {
-    color: var(--accent-color); /* Cor do ícone de música local na playlist */
+    color: var(--accent-color);
 }
 
 .empty-playlist-message {
@@ -356,23 +352,24 @@ body {
     padding: 20px;
     font-style: italic;
 }
+
 #audio-player {
-    display: none; /* Isso esconderá o player HTML5 padrão */
+    display: none;
 }
-/* Responsividade */
+
 @media (max-width: 900px) {
     .player-container {
-        flex-direction: column; /* Pilha o player e a playlist em telas menores */
+        flex-direction: column;
         height: 95vh;
         width: 90%;
     }
 
     .main-player {
         border-right: none;
-        border-bottom: 1px solid var(--tertiary-bg); /* Divisor horizontal */
+        border-bottom: 1px solid var(--tertiary-bg);
         padding: 20px;
-        flex: none; /* Remove flex-grow */
-        height: 50%; /* Ocupa metade da altura */
+        flex: none;
+        height: 50%;
         justify-content: center;
     }
 
@@ -394,8 +391,8 @@ body {
     }
 
     .controls-section {
-        max-width: none; /* Remove limite de largura */
-        padding-bottom: 10px; /* Espaçamento inferior */
+        max-width: none;
+        padding-bottom: 10px;
     }
 
     .player-controls {
@@ -411,8 +408,8 @@ body {
     }
 
     .playlist-section {
-        flex: none; /* Remove flex-grow */
-        height: 50%; /* Ocupa metade da altura */
+        flex: none;
+        height: 50%;
         padding: 15px;
     }
 
@@ -421,14 +418,17 @@ body {
         gap: 10px;
         align-items: flex-start;
     }
+
     .upload-controls {
-        flex-direction: column; /* Empilha os botões de upload em telas menores */
+        flex-direction: column;
         gap: 10px;
     }
+
     .youtube-input-group {
         flex-direction: column;
         gap: 10px;
     }
+
     .youtube-url-input, .add-youtube-btn {
         width: 100%;
     }
@@ -436,22 +436,27 @@ body {
 
 @media (max-width: 500px) {
     .player-container {
-        height: 100vh; /* Ocupa toda a altura em mobile */
-        border-radius: 0; /* Remove bordas arredondadas */
+        height: 100vh;
+        border-radius: 0;
     }
+
     .main-player, .playlist-section {
-        height: auto; /* Altura automática */
-        flex: 1; /* Permite que ocupem o espaço disponível */
+        height: auto;
+        flex: 1;
     }
+
     .main-player {
         padding-top: 30px;
     }
+
     .song-info h2 {
         font-size: 1.3em;
     }
+
     .song-info p {
         font-size: 0.9em;
     }
+
     .upload-btn {
         width: 100%;
         justify-content: center;

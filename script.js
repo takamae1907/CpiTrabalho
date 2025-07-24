@@ -1,11 +1,10 @@
-// --- Variáveis Globais ---
+
 let tarefas = [];
 let idAtual = 0;
 let filtroCategoriaAtual = "todos";
 let tarefaSendoEditadaId = null;
-let tarefaArrastadaId = null; // Para Drag & Drop
+let tarefaArrastadaId = null; 
 
-// --- Referências DOM ---
 const form = document.getElementById("task-form");
 const inputNome = document.getElementById("task-name");
 const selectPrioridade = document.getElementById("task-priority");
@@ -30,7 +29,7 @@ const cancelEditButton = document.getElementById("cancel-edit-button");
 const exportTxtButton = document.getElementById("export-txt-button");
 const exportJsonButton = document.getElementById("export-json-button");
 
-// Referências DOM para o novo modal de mensagem
+
 const messageModal = document.getElementById("message-modal");
 const messageModalTitle = document.getElementById("message-modal-title");
 const messageModalText = document.getElementById("message-modal-text");
@@ -39,13 +38,13 @@ const messageModalOkButton = document.getElementById("message-modal-ok-button");
 
 const notificationTimeouts = {};
 
-// --- Funções Auxiliares de UI (para substituir alert/confirm) ---
+
 function showMessageBox(title, message, callback = () => {}) {
     messageModalTitle.textContent = title;
     messageModalText.textContent = message;
     messageModal.classList.add("visible");
 
-    // Limpa qualquer listener anterior para evitar múltiplos disparos
+ 
     messageModalOkButton.onclick = null; 
     messageModalOkButton.onclick = () => {
         messageModal.classList.remove("visible");
@@ -54,36 +53,31 @@ function showMessageBox(title, message, callback = () => {}) {
 }
 
 function showConfirmBox(title, message, onConfirm, onCancel = () => {}) {
-    // Reutiliza o modal de mensagem, mas adiciona um botão de cancelar e ajusta o OK
+   
     messageModalTitle.textContent = title;
     messageModalText.textContent = message;
     messageModal.classList.add("visible");
 
-    // Cria um botão de cancelar temporário
+
     let cancelButton = document.createElement('button');
     cancelButton.textContent = 'Cancelar';
-    cancelButton.classList.add('modal-cancel-button'); // Use sua classe de botão cancelar
+    cancelButton.classList.add('modal-cancel-button');
     cancelButton.onclick = () => {
         messageModal.classList.remove("visible");
         onCancel();
-        cancelButton.remove(); // Remove o botão após o uso
+        cancelButton.remove(); 
     };
-
-    // Adiciona o botão de cancelar antes do botão OK
     messageModalOkButton.parentNode.insertBefore(cancelButton, messageModalOkButton);
 
-    // Ajusta o botão OK para a ação de confirmação
-    messageModalOkButton.textContent = 'Confirmar'; // Muda o texto para "Confirmar"
+    messageModalOkButton.textContent = 'Confirmar'; 
     messageModalOkButton.onclick = () => {
         messageModal.classList.remove("visible");
         onConfirm();
-        cancelButton.remove(); // Remove o botão de cancelar
-        messageModalOkButton.textContent = 'OK'; // Volta o texto do botão OK para o padrão
+        cancelButton.remove(); 
+        messageModalOkButton.textContent = 'OK'; 
     };
 }
 
-
-// --- Funções de Persistência (localStorage) ---
 function carregarTarefas() {
     const tarefasSalvas = localStorage.getItem("tarefas");
     if (tarefasSalvas) {
@@ -91,7 +85,7 @@ function carregarTarefas() {
         idAtual = tarefas.length > 0 ? Math.max(...tarefas.map(t => t.id)) + 1 : 0;
 
         tarefas.forEach(tarefa => {
-            // Garante que o contador de pomodoros existe
+           
             if (typeof tarefa.pomodorosCompletos === 'undefined') {
                 tarefa.pomodorosCompletos = 0;
             }
@@ -137,8 +131,6 @@ themeToggleBtn.addEventListener("click", () => {
         localStorage.setItem("theme", "light");
     }
 });
-
-// --- Permissão de Notificação ---
 function solicitarPermissaoNotificacao() {
     if (!("Notification" in window)) {
         console.warn("Este navegador não suporta notificações de desktop.");
@@ -152,18 +144,15 @@ function solicitarPermissaoNotificacao() {
     }
     return Notification.requestPermission();
 }
-
-// --- Event Listeners Principais ---
 document.addEventListener("DOMContentLoaded", () => {
     carregarTarefas();
     renderizarTarefas();
     setupDragAndDrop();
     solicitarPermissaoNotificacao();
 
-    // Event Listener para o botão de voltar - MOVIDO PARA AQUI
     if (backButton) { 
         backButton.addEventListener("click", () => {
-            history.back(); // Esta função do navegador faz a página voltar na história
+            history.back(); 
         });
     }
 });
@@ -223,14 +212,14 @@ function renderizarTarefas() {
     pendingTasks.forEach((tarefa) => {
         const div = criarElementoTarefa(tarefa);
         pendingTasksContainer.appendChild(div);
-        // Garante que os ícones Lucide sejam criados dentro da nova tarefa
+        
         lucide.createIcons({ container: div }); 
     });
 
     archivedTasks.forEach((tarefa) => {
         const div = criarElementoTarefa(tarefa);
         archivedTasksContainer.appendChild(div);
-        // Garante que os ícones Lucide sejam criados dentro da nova tarefa
+       
         lucide.createIcons({ container: div });
     });
 
@@ -319,7 +308,7 @@ function criarElementoTarefa(tarefa) {
     nomeSpan.appendChild(categoryBadge);
 
     const btnConcluirOuDesarquivar = document.createElement("button");
-    btnConcluirOuDesarquivar.classList.add("btn-concluir"); // Adicionando a classe base
+    btnConcluirOuDesarquivar.classList.add("btn-concluir"); 
     if (tarefa.arquivada) {
         btnConcluirOuDesarquivar.innerHTML = `
             <span data-lucide="folder-open" class="lucide-icon"></span>
@@ -335,7 +324,7 @@ function criarElementoTarefa(tarefa) {
     }
 
     const btnEditar = document.createElement("button");
-    btnEditar.classList.add("btn-editar"); // Adicionando a classe base
+    btnEditar.classList.add("btn-editar");
     btnEditar.innerHTML = `
         <span data-lucide="pencil" class="lucide-icon"></span>
         <span class="button-text-hidden">Editar</span>
@@ -349,7 +338,7 @@ function criarElementoTarefa(tarefa) {
     }
 
     const btnExcluir = document.createElement("button");
-    btnExcluir.classList.add("btn-excluir"); // Adicionando a classe base
+    btnExcluir.classList.add("btn-excluir");
     btnExcluir.innerHTML = `
         <span data-lucide="trash-2" class="lucide-icon"></span>
         <span class="button-text-hidden">Excluir</span>
@@ -360,9 +349,8 @@ function criarElementoTarefa(tarefa) {
         () => removerTarefa(tarefa.id, div)
     );
 
-    // ADIÇÃO AQUI: Adicionar uma classe específica para o botão de exclusão de alta prioridade
     if (tarefa.prioridade === 'alta') {
-        btnExcluir.classList.add("btn-excluir-critico"); // Nova classe
+        btnExcluir.classList.add("btn-excluir-critico"); 
     }
 
     const pomodoroElement = document.createElement("span");
@@ -373,7 +361,7 @@ function criarElementoTarefa(tarefa) {
         }
 
         const btnPomodoro = document.createElement("button");
-        btnPomodoro.classList.add("pomodoro-button"); // Adicionando a classe base
+        btnPomodoro.classList.add("pomodoro-button"); 
         btnPomodoro.innerHTML = `
             <span data-lucide="timer" class="lucide-icon"></span>
             <span class="button-text-hidden">Pomodoro Concluído</span>
@@ -451,7 +439,7 @@ function desarquivarTarefa(id) {
 }
 
 
-// --- Funções do Modal de Edição ---
+
 function abrirModalEdicao(id) {
     const tarefa = tarefas.find((t) => t.id === id);
     if (!tarefa || tarefa.arquivada) {
@@ -530,7 +518,6 @@ editTaskForm.addEventListener("submit", function (e) {
 });
 
 
-// --- Funções de Notificação ---
 
 function agendarNotificacaoReal(id, nomeTarefa, tempoParaNotificarMs) {
     if (Notification.permission !== "granted") {
@@ -545,7 +532,7 @@ function agendarNotificacaoReal(id, nomeTarefa, tempoParaNotificarMs) {
     notificationTimeouts[id] = setTimeout(() => {
         new Notification("Lembrete de Tarefa", {
             body: `Não se esqueça de: "${nomeTarefa}"`,
-            icon: 'icon.png' // Certifique-se de ter um arquivo icon.png ou ajuste o caminho
+            icon: 'icon.png'
         });
         delete notificationTimeouts[id];
         const tarefa = tarefas.find(t => t.id === id);
@@ -578,7 +565,7 @@ function cancelarLembrete(id, shouldRender = true) {
     }
 }
 
-// --- Funções de Exportação ---
+
 
 function downloadFile(filename, text, type) {
     const element = document.createElement('a');
@@ -647,9 +634,9 @@ function exportarTarefasJson() {
 }
 
 
-// --- Funções de Drag & Drop ---
 
-function setupDragAndDrop() { // Renomeado para evitar conflito com o nome da variável
+
+function setupDragAndDrop() { 
     configurarDragAndDropContainers();
 }
 

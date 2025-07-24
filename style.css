@@ -4,2708 +4,34 @@
     padding: 0;
 }
 
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-header {
-    background-color: var(--header-background-color);
-    color: var(--text-color);
-    padding: 1.5rem 2rem;
-    display: flex;
-    justify-content: space-between; /* Mantém o título à esquerda e o grupo de botões à direita */
-    align-items: center;
-    box-shadow: 0 2px 4px var(--shadow-color);
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-
-
-
-
-#theme-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Um leve fundo no hover */
-    border-color: #ecf0f1; /* Borda um pouco mais clara */
-}
-
-#theme-toggle .icon {
-    width: 24px; /* Tamanho do ícone SVG */
-    height: 24px; /* Tamanho do ícone SVG */
-    display: block; /* Garante que o SVG se comporte como bloco */
-}
-
-/* Lógica para mostrar/esconder ícones no modo claro */
-#theme-toggle .moon-icon {
-    display: none; /* Esconde a lua no modo claro */
-}
-
-#theme-toggle .sun-icon {
-    display: block; /* Mostra o sol no modo claro */
-}
-
-/* Oculta o texto do botão de tema por padrão para telas pequenas */
-#theme-toggle .button-text {
-    position: absolute; /* Tira o texto do fluxo */
-    width: 1px; /* Largura mínima */
-    height: 1px; /* Altura mínima */
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap; /* Não quebra linha */
-    border: 0;
-}
-
-/* MEDIA QUERIES para telas maiores: mostra o texto ao lado do ícone */
-@media (min-width: 768px) {
-    #theme-toggle {
-        width: auto; /* Permite que o botão se expanda com o texto */
-        height: auto;
-        border-radius: 20px; /* Borda mais suave para um botão com texto */
-        padding: 0.5rem 1rem; /* Mais padding para o texto */
-        font-size: 1rem; /* Volta o tamanho da fonte */
-        display: flex; /* Garante que ícone e texto fiquem na mesma linha */
-        gap: 0.5rem; /* Espaço entre ícone e texto */
-    }
-
-    #theme-toggle .button-text {
-        position: static; /* Volta o texto para o fluxo normal */
-        width: auto;
-        height: auto;
-        margin: 0;
-        overflow: visible;
-        clip: auto;
-        white-space: normal;
-    }
-}
-
-
-/* Estilos para o restante da página */
-footer {
-    background-color: #2c3e50;
-    color: #ffffff;
-    text-align: center;
-    padding: 2rem 1rem;
-    font-size: 1.1rem;
-    margin-top: auto;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-}
-
-main {
-    flex: 1;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: auto;
-}
-
-form {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-}
-
-form input, form select {
-    flex: 1;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-form button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: #27ae60;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s;
-    border-radius: 4px;
-}
-
-form button:hover {
-    background-color: #219150;
-}
-
-.task {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-left: 6px solid transparent;
-    border-radius: 5px;
-    transition: all 0.5s ease-out; /* Transição para todas as propriedades */
-    max-width: 900px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* **Adicionado: Essencial para a animação de slide** */
-}
-
-/* Animações de entrada e saída de tarefas */
-.task.hide {
-    opacity: 0;
-    height: 0;
-    padding: 0 1rem; /* Zera o padding para o slide-up */
-    margin-bottom: 0;
-    border-left: 6px solid transparent; /* Mantém a borda transparente */
-}
-
-.task.showing {
-    opacity: 0;
-    height: 0;
-    padding: 0 1rem;
-    margin-bottom: 0;
-    border-left: 6px solid transparent;
-}
-
-.task.show {
-    opacity: 1;
-    height: auto; /* Permite que a altura se ajuste ao conteúdo */
-    padding: 1rem;
-    margin-bottom: 1rem;
-}
-
-.task:hover {
-    transform: scale(1.01);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada no hover */
-}
-
-.task.prioridade-baixa {
-    border-left-color: #3498db;
-}
-.task.prioridade-média {
-    border-left-color: #f1c40f;
-}
-.task.prioridade-alta {
-    border-left-color: #e74c3c;
-}
-
-.task.concluida {
-    text-decoration: line-through;
-    opacity: 0.6;
-    text-decoration-color: #333; /* Cor da linha de rasura no tema claro */
-}
-
-.task button {
-    background: #ecf0f1;
-    color: #333;
-    margin-left: 5px;
-    padding: 8px 16px; /* Ajuste para um botão menor */
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
-    font-size: 0.9rem;
-}
-
-.task button:hover {
-    background: #d0d7db;
-    box-shadow: none; /* Removendo box-shadow aqui para não competir com o do .task */
-}
-
-/* Modo Escuro */
-body.dark-mode {
-    background-color: #2c3e50; /* Fundo escuro */
-    color: #ecf0f1; /* Cor do texto clara */
-}
-
-body.dark-mode header,
-body.dark-mode footer {
-    background-color: #1a242f; /* Fundo mais escuro para header/footer */
-    color: #ecf0f1;
-}
-
-/* Lógica para mostrar/esconder ícones no modo escuro */
-body.dark-mode #theme-toggle .sun-icon {
-    display: none; /* Esconde o sol no modo escuro */
-}
-
-body.dark-mode #theme-toggle .moon-icon {
-    display: block; /* Mostra a lua no modo escuro */
-}
-
-body.dark-mode #theme-toggle {
-    color: #f1c40f; /* Cor amarela para o ícone da lua no modo escuro */
-    border-color: #f1c40f; /* Borda amarela no modo escuro */
-}
-
-body.dark-mode #theme-toggle:hover {
-    background-color: rgba(241, 196, 15, 0.1); /* Fundo sutil no hover no modo escuro */
-    border-color: #f39c12; /* Borda mais escura no hover */
-}
-
-body.dark-mode .task {
-    background: #34495e; /* Fundo das tarefas no modo escuro */
-    color: #ecf0f1;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra mais visível no escuro */
-}
-
-body.dark-mode form input,
-body.dark-mode form select {
-    background-color: #4a627a; /* Fundo dos inputs/selects no modo escuro */
-    color: #ffffff;
-    border: 1px solid #5d748f;
-}
-
-body.dark-mode form button {
-    background-color: #2ecc71; /* Botão de adicionar tarefa um pouco mais claro */
-}
-
-body.dark-mode form button:hover {
-    background-color: #27ae60; /* Hover do botão de adicionar tarefa */
-}
-
-
-
-body.dark-mode .task.concluida {
-    text-decoration-color: rgba(236, 240, 241, 0.6); /* Cor da linha de rasura no modo escuro */
-}
-
-/* Estilos para os ícones Lucide dentro dos botões de tarefa */
-.task button .lucide-icon {
-    width: 20px; /* Tamanho dos ícones */
-    height: 20px;
-    vertical-align: middle; /* Alinha verticalmente com o texto, se houver */
-    margin-right: 5px; /* Espaço entre o ícone e o texto (se visível) */
-    stroke-width: 2.5; /* Deixa a linha do ícone um pouco mais grossa */
-}
-
-/* Oculta o texto dos botões por padrão para telas pequenas (mostrando apenas o ícone) */
-.task button .button-text-hidden {
-    position: absolute; /* Tira o texto do fluxo */
-    width: 1px; /* Largura mínima */
-    height: 1px; /* Altura mínima */
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap; /* Não quebra linha */
-    border: 0;
-}
-
-/* Em telas maiores, mostra o texto dos botões */
-@media (min-width: 768px) {
-    .task button {
-        padding: 8px 16px; /* Mais padding quando o texto está visível */
-        font-size: 0.9rem; /* Tamanho da fonte normal */
-        display: flex; /* Para alinhar ícone e texto */
-        align-items: center;
-        justify-content: center;
-    }
-
-    .task button .button-text-hidden {
-        position: static; /* Volta o texto para o fluxo normal */
-        width: auto;
-        height: auto;
-        margin: 0;
-        overflow: visible;
-        clip: auto;
-        white-space: normal;
-    }
-
-    .task button .lucide-icon {
-        margin-right: 8px; /* Mais espaço entre ícone e texto em telas maiores */
-    }
-}
-
-
-/* Ajustes para cor dos ícones no modo escuro */
-body.dark-mode .task button .lucide-icon {
-    color: #ecf0f1; /* Cor dos ícones no modo escuro */
-}
-
-/* Estilos para o badge de prioridade */
-.task-priority-badge {
-    display: inline-block; /* Para que o span se ajuste ao conteúdo */
-    padding: 0.2rem 0.6rem; /* Espaçamento interno */
-    margin-left: 10px; /* Espaço à esquerda do nome da tarefa */
-    border-radius: 4px; /* Cantos arredondados */
-    font-size: 0.75rem; /* Tamanho da fonte menor */
-    font-weight: 600; /* Negrito */
-    text-transform: uppercase; /* Texto em maiúsculas */
-    color: white; /* Cor do texto padrão */
-    line-height: 1; /* Garante que o texto fique bem centralizado verticalmente */
-    min-width: 50px; /* Largura mínima para manter consistência */
-    text-align: center; /* Centraliza o texto */
-    vertical-align: middle; /* Alinha verticalmente com o texto da tarefa */
-}
-
-/* Cores do badge de acordo com a prioridade */
-.task-priority-badge.prioridade-baixa {
-    background-color: #3498db; /* Azul */
-    color: white;
-}
-.task-priority-badge.prioridade-média {
-    background-color: #f1c40f; /* Amarelo */
-    color: #333; /* Texto escuro para contraste no amarelo */
-}
-.task-priority-badge.prioridade-alta {
-    background-color: #e74c3c; /* Vermelho */
-    color: white;
-}
-
-/* Ajustes para o modo escuro */
-body.dark-mode .task-priority-badge.prioridade-média {
-    color: #333; /* Mantém o texto escuro para contraste no amarelo no modo escuro */
-}
-/* As outras cores de texto já são claras e funcionam bem no modo escuro */
-
-/* Ajuste no span do nome da tarefa para alinhar com o badge, se necessário */
-.task span {
-    flex-grow: 1; /* Permite que o nome da tarefa ocupe o espaço disponível */
-    display: flex; /* Adicionado para alinhar o texto e o badge */
-    align-items: center; /* Alinha verticalmente os itens */
-}
-
-.task span strong {
-    margin-right: 8px; /* Espaço entre o nome da tarefa e o badge */
-    font-weight: 600; /* Nome da tarefa um pouco mais negrito */
-}
-
-/* Estilos para a seção de filtros */
-.filters {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: #e9ecef; /* Fundo claro para o filtro */
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.filters label {
-    font-weight: 600;
-    color: #555;
-}
-
-.filters select {
-    padding: 0.6rem;
-    font-size: 0.95rem;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    background-color: white;
-    cursor: pointer;
-    flex-grow: 1; /* Permite que o select de filtro ocupe espaço */
-    max-width: 250px; /* Limita a largura do select de filtro */
-}
-
-.filters select:focus {
-    outline: none;
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-
-/* Estilos para o badge de categoria (opcional, mas recomendado para consistência) */
-.task-category-badge {
-    display: inline-block;
-    padding: 0.2rem 0.2rem;
-    margin-left: 0px; /* Espaço à esquerda do badge de prioridade */
-    border-radius: 4px;
-    font-size: 0.7rem; /* Um pouco menor que o de prioridade */
-    font-weight: 100;
-    text-transform: uppercase;
-    color: white;
-    line-height: 1;
-    min-width: 10px; /* Largura mínima */
-    text-align: center;
-    vertical-align: middle;
-    background-color: #6c757d; /* Cor padrão para categorias */
-}
-
-
-/* Ajustes para o modo escuro */
-body.dark-mode .filters {
-    background-color: #34495e;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-body.dark-mode .filters label {
-    color: #ecf0f1;
-}
-body.dark-mode .filters select {
-    background-color: #4a627a;
-    color: #ecf0f1;
-    border-color: #5d748f;
-}
-body.dark-mode .filters select:focus {
-    box-shadow: 0 0 0 0.2rem rgba(128, 189, 255, 0.25);
-}
-
-/* Ajuste no span do nome da tarefa para alinhar com o badge, se necessário */
-.task span {
-    flex-grow: 1; /* Permite que o nome da tarefa ocupe o espaço disponível */
-    display: flex; /* Adicionado para alinhar o texto e os badges */
-    align-items: center; /* Alinha verticalmente os itens */
-    flex-wrap: wrap; /* Permite que os badges quebrem linha se houver muitos */
-}
-
-.task span strong {
-    margin-right: 8px; /* Espaço entre o nome da tarefa e o badge */
-    font-weight: 600; /* Nome da tarefa um pouco mais negrito */
-}
-
-/* Ajuste para que o input e selects do formulário fiquem melhor quando houver mais de um */
-form input, form select {
-    flex: 1; /* Permite que cada um ocupe 1 parte do espaço disponível */
-    min-width: 150px; /* Garante que não fiquem muito pequenos */
-}
-
-/* ... (Seu CSS existente) ... */
-
-/* NOVOS ESTILOS PARA AS SEÇÕES PENDENTES/CONCLUÍDAS */
-.task-section {
-    margin-top: 2.5rem; /* Espaçamento entre as seções */
-    padding: 1rem;
-    border-radius: 8px;
-    background-color: #fcfcfc; /* Um fundo suave para as seções */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.task-section + .task-section { /* Espaço entre seções de tarefa */
-    margin-top: 2rem;
-}
-
-.section-title {
-    font-size: 1.5rem;
-    color: #2c3e50; /* Cor do título */
-    margin-bottom: 1.5rem; /* Espaçamento abaixo do título */
-    border-bottom: 2px solid #e0e0e0; /* Linha de separação */
-    padding-bottom: 0.8rem;
-}
-
-.task-list-container {
-    /* Este div conterá as tarefas. */
-    /* Nenhuma propriedade display específica aqui, as tarefas já são flexbox. */
-}
-
-.empty-message {
-    text-align: center;
-    padding: 1.5rem 1rem;
-    color: #888;
-    font-style: italic;
-    font-size: 0.95rem;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-    margin-top: 1rem;
-}
-
-.empty-message.hidden {
-    display: none; /* Classe para esconder a mensagem */
-}
-
-/* Ajustes para o modo escuro */
-body.dark-mode .task-section {
-    background-color: #34495e;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-}
-
-body.dark-mode .section-title {
-    color: #ecf0f1;
-    border-bottom-color: #4a627a;
-}
-
-body.dark-mode .empty-message {
-    background-color: #4a627a;
-    color: #bbb;
-}
-
-/* Apenas um ajuste para a tarefa concluída ter um fundo mais escuro no modo escuro */
-body.dark-mode .task.concluida {
-    background: #2f4051;
-}
-
-/* FIM DOS NOVOS ESTILOS */
-
-/* ... (Seu CSS existente) ... */
-
-/* NOVOS ESTILOS PARA A SEÇÃO DE ARQUIVADAS */
-.task-section.archived-section {
-    background-color: #f7f7f7; /* Um fundo um pouco mais claro/neutro para o histórico */
-    border: 1px dashed #dcdcdc; /* Borda tracejada para diferenciar */
-    box-shadow: none; /* Sem sombra ou sombra mais sutil */
-    opacity: 0.9; /* Levemente mais transparente */
-    margin-top: 3rem; /* Um pouco mais de espaço para destacar a seção */
-}
-
-body.dark-mode .task-section.archived-section {
-    background-color: #2b3a4a;
-    border-color: #4a627a;
-    opacity: 0.95;
-}
-
-/* Estilo para as tarefas individuais dentro do histórico/arquivadas */
-.task-section.archived-section .task {
-    background-color: #e9ecef; /* Um fundo mais suave para tarefas arquivadas */
-    border-left: 6px solid #6c757d; /* Cor de borda mais neutra/escura */
-    color: #6c757d; /* Texto levemente cinza */
-    text-decoration: line-through; /* Riscar o texto da tarefa concluída/arquivada */
-    opacity: 0.8; /* Levemente transparente */
-}
-
-/* Cores dos badges de prioridade e categoria dentro de tarefas arquivadas */
-.task-section.archived-section .task .task-priority-badge,
-.task-section.archived-section .task .task-category-badge {
-    background-color: #909090; /* Um cinza neutro para todos os badges no histórico */
-    color: white;
-}
-
-/* Os botões dentro de tarefas arquivadas também podem ter um estilo diferente */
-.task-section.archived-section .task button {
-    background-color: #adb5bd; /* Um cinza mais claro para os botões */
-    color: white;
-}
-.task-section.archived-section .task button:hover {
-    background-color: #8f9aa6;
-}
-
-body.dark-mode .task-section.archived-section .task {
-    background-color: #3f556d;
-    border-left-color: #8d9faf;
-    color: #b0c4de;
-}
-body.dark-mode .task-section.archived-section .task .task-priority-badge,
-body.dark-mode .task-section.archived-section .task .task-category-badge {
-    background-color: #677b91;
-}
-body.dark-mode .task-section.archived-section .task button {
-    background-color: #617d98;
-}
-body.dark-mode .task-section.archived-section .task button:hover {
-    background-color: #7a94b0;
-}
-
-
-/* Remova ou ajuste os estilos antigos para '.task.concluida' se eles conflitarem
-   com os novos estilos de '.task-section.archived-section .task' */
-/* Exemplo:
-.task.concluida {
-    text-decoration: line-through;
-    opacity: 0.7;
-    background-color: #f0f0f0;
-    border-left-color: #ccc;
-    color: #888;
-}
-Isso pode ser removido ou simplificado agora que o estilo está no pai.
-Se quiser manter para tarefas concluídas que não vão para o histórico, ok.
-Mas a nova lógica é que concluídas = arquivadas. */
-/* ... (Seu CSS existente) ... */
-
-/* Estilos para o novo botão Lembrar-me */
-.task button.remember-button {
-    background-color: #17a2b8; /* Azul claro/ciano */
-    color: white;
-}
-
-.task button.remember-button:hover {
-    background-color: #138496;
-}
-
-/* Modo escuro para o botão Lembrar-me */
-body.dark-mode .task button.remember-button {
-    background-color: #00bcd4; /* Um azul mais vibrante para contraste */
-    color: #333;
-}
-
-body.dark-mode .task button.remember-button:hover {
-    background-color: #0097a7;
-}
-
-/* Se a tarefa estiver arquivada, o botão lembrar pode ficar mais sutil */
-.task-section.archived-section .task button.remember-button {
-    background-color: #72849a; /* Um cinza mais escuro */
-    color: #e0e0e0;
-}
-.task-section.archived-section .task button.remember-button:hover {
-    background-color: #5c6c7d;
-}
-
-/* ... (Seu CSS existente) ... */
-
-/* Estilos para o Modal de Edição */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Garante que fique por cima de tudo */
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.modal-overlay.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 2.5rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 90%;
-    max-width: 500px;
-    transform: translateY(-20px);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.modal-overlay.visible .modal-content {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.modal-title {
-    font-size: 1.8rem;
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: #555;
-}
-
-.modal-content input[type="text"],
-.modal-content select,
-.modal-content input[type="datetime-local"] {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    border: 1px solid #ced4da;
-    border-radius: 6px;
-    font-size: 1rem;
-    box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura */
-}
-
-.modal-content input[type="text"]:focus,
-.modal-content select:focus,
-.modal-content input[type="datetime-local"]:focus {
-    outline: none;
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.modal-buttons button {
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.modal-buttons .save-button {
-    background-color: #28a745; /* Verde */
-    color: white;
-}
-.modal-buttons .save-button:hover {
-    background-color: #218838;
-    transform: translateY(-1px);
-}
-
-.modal-buttons .cancel-button {
-    background-color: #dc3545; /* Vermelho */
-    color: white;
-}
-.modal-buttons .cancel-button:hover {
-    background-color: #c82333;
-    transform: translateY(-1px);
-}
-
-/* Modo Escuro para o Modal */
-body.dark-mode .modal-content {
-    background-color: #34495e;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-}
-
-body.dark-mode .modal-title {
-    color: #ecf0f1;
-}
-
-body.dark-mode .form-group label {
-    color: #bbb;
-}
-
-body.dark-mode .modal-content input[type="text"],
-body.dark-mode .modal-content select,
-body.dark-mode .modal-content input[type="datetime-local"] {
-    background-color: #4a627a;
-    color: #ecf0f1;
-    border-color: #5d748f;
-}
-
-body.dark-mode .modal-content input[type="text"]:focus,
-body.dark-mode .modal-content select:focus,
-body.dark-mode .modal-content input[type="datetime-local"]:focus {
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(128, 189, 255, 0.25);
-}
-
-/* ... (Seu CSS existente) ... */
-
-/* Estilos para a Seção de Exportação */
-.export-options {
-    background-color: #e9f7ef; /* Fundo suave para a seção de exportação */
-    border: 1px solid #d4edda;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-top: 2rem;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.export-options h3 {
-    font-size: 1.3rem;
-    color: #28a745; /* Cor verde para o título */
-    margin-bottom: 1.2rem;
-}
-
-.export-button {
-    padding: 0.8rem 1.8rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin: 0 0.5rem; /* Espaço entre os botões */
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    font-weight: 600;
-}
-
-#export-txt-button {
-    background-color: #6c757d; /* Cinza */
-    color: white;
-}
-
-#export-txt-button:hover {
-    background-color: #5a6268;
-    transform: translateY(-1px);
-}
-
-#export-json-button {
-    background-color: #007bff; /* Azul */
-    color: white;
-}
-
-#export-json-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-1px);
-}
-
-/* Modo Escuro para a Seção de Exportação */
-body.dark-mode .export-options {
-    background-color: #3d5a7d;
-    border-color: #5c7d9e;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-body.dark-mode .export-options h3 {
-    color: #ecf0f1;
-    border-bottom-color: #4a627a; /* Linha de separação mais clara */
-}
-
-body.dark-mode #export-txt-button {
-    background-color: #8c9fae;
-    color: #222;
-}
-body.dark-mode #export-txt-button:hover {
-    background-color: #7a8c9b;
-}
-
-body.dark-mode #export-json-button {
-    background-color: #4da6ff;
-    color: #222;
-}
-body.dark-mode #export-json-button:hover {
-    background-color: #3388ee;
-}
-
-/* ... (Seu CSS existente) ... */
-
-/* Estilos para Drag & Drop */
-.task.dragging {
-    opacity: 0.5; /* Torna o item arrastado semi-transparente */
-    border: 2px dashed #007bff; /* Adiciona uma borda tracejada azul */
-    background-color: #f0f8ff; /* Muda a cor de fundo */
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3); /* Adiciona uma sombra suave */
-}
-
-/* Estilo para indicar onde o item será solto */
-.task-list-container .drag-over {
-    border-top: 3px solid #28a745; /* Borda verde na parte superior do item alvo */
-    margin-top: 5px; /* Pequena margem para visualização */
-}
-
-/* Modo Escuro para Drag & Drop */
-body.dark-mode .task.dragging {
-    background-color: #2c3e50;
-    border: 2px dashed #4da6ff;
-    box-shadow: 0 0 10px rgba(77, 166, 255, 0.3);
-}
-
-body.dark-mode .task-list-container .drag-over {
-    border-top: 3px solid #98ff98; /* Verde mais claro para o modo escuro */
-}
-
-/* ... (Seu CSS existente) ... */
-
-/* --- Estilos para o Timer Pomodoro --- */
-.pomodoro-timer-controls {
-    background-color: #f8f9fa; /* Light background */
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-top: 1.5rem;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-}
-
-.pomodoro-timer-controls h2 {
-    font-size: 1.8rem;
-    color: #343a40;
-    margin-bottom: 1rem;
-    font-weight: 700;
-}
-
-.pomodoro-display {
-    font-family: 'Inter', sans-serif;
-    font-size: 4.5rem; /* Big font for timer */
-    font-weight: 700;
-    color: #007bff; /* Blue color for timer */
-    margin-bottom: 1.5rem;
-    letter-spacing: 2px;
-    padding: 0.5rem 1rem;
-    background-color: #e9ecef;
-    border-radius: 8px;
-    display: inline-block;
-    min-width: 200px; /* Garante tamanho mínimo */
-}
-
-.timer-buttons {
-    margin-bottom: 1rem;
-}
-
-.pomodoro-control-button {
-    background-color: #6c757d; /* Gray */
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin: 0 0.5rem;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.pomodoro-control-button:hover {
-    background-color: #5a6268;
-    transform: translateY(-1px);
-}
-
-.pomodoro-control-button .lucide-icon {
-    width: 20px;
-    height: 20px;
-    color: white; /* Cor dos ícones */
-}
-
-.current-pomodoro-task-info {
-    font-size: 1.1rem;
-    color: #495057;
-    margin-top: 1rem;
-    font-style: italic;
-}
-
-/* Modo Escuro para o Timer Pomodoro */
-body.dark-mode .pomodoro-timer-controls {
-    background-color: #2c3e50;
-    border-color: #3a506b;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-body.dark-mode .pomodoro-timer-controls h2 {
-    color: #ecf0f1;
-}
-
-body.dark-mode .pomodoro-display {
-    color: #8bb8ff;
-    background-color: #3a506b;
-}
-
-body.dark-mode .pomodoro-control-button {
-    background-color: #8c9fae;
-    color: #222;
-}
-body.dark-mode .pomodoro-control-button:hover {
-    background-color: #7a8c9b;
-}
-body.dark-mode .pomodoro-control-button .lucide-icon {
-    color: #222;
-}
-
-body.dark-mode .current-pomodoro-task-info {
-    color: #bdc3c7;
-}
-
-
-
-
-main {
-    flex-grow: 1; /* Faz o conteúdo principal ocupar o espaço restante */
-    padding: 2rem;
-    max-width: 900px;
-    margin: 2rem auto;
-    background-color: var(--card-background-color);
-    border-radius: 12px;
-    box-shadow: 0 4px 15px var(--shadow-color);
-}
-
-footer {
-    text-align: center;
-    padding: 1.5rem;
-    background-color: var(--header-background-color);
-    color: var(--text-color-light);
-    box-shadow: 0 -2px 4px var(--shadow-color);
-    margin-top: auto; /* Empurra o rodapé para baixo */
-}
-
-.sun-icon {
-    display: block; /* Visível por padrão */
-    color: gold;
-}
-.moon-icon {
-    display: none; /* Escondido por padrão */
-    color: silver;
-}
-
-body.dark-mode .sun-icon {
-    display: none;
-}
-body.dark-mode .moon-icon {
-    display: block;
-}
-
-/* --- NOVO: Botão de Navegação "Abrir Pomodoro" --- */
-.nav-button {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.7rem 1.2rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    text-decoration: none; /* Remover sublinhado do link */
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    font-weight: 600;
-    margin-right: 170px;
-}
-
-.nav-button:hover {
-    background-color: var(--button-primary-hover);
-    transform: translateY(-1px);
-}
-
-.nav-button .lucide-icon {
-    width: 24px;
-    height: 24px;
-    color: white;
-}
-/* FIM NOVO */
-
-
-/* Formulário */
-form {
-    display: flex;
-    flex-wrap: wrap; /* Quebra linha em telas pequenas */
-    gap: 15px;
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    background-color: var(--card-background-color);
-    box-shadow: 0 2px 8px var(--shadow-color);
-}
-
-form input[type="text"],
-form select {
-    flex: 1; /* Permite que os campos cresçam */
-    padding: 12px 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: var(--input-background);
-    color: var(--text-color);
-    min-width: 150px; /* Garante tamanho mínimo para inputs/selects */
-}
-
-form input[type="text"]::placeholder {
-    color: var(--placeholder-color);
-}
-
-form button[type="submit"] {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    font-weight: 600;
-    flex-shrink: 0; /* Não permite que o botão diminua */
-}
-
-form button[type="submit"]:hover {
-    background-color: var(--button-primary-hover);
-    transform: translateY(-1px);
-}
-
-/* Filtros */
-.filters {
-    margin-bottom: 2rem;
-    padding: 1rem 1.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    background-color: var(--card-background-color);
-    box-shadow: 0 2px 8px var(--shadow-color);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.filters label {
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-.filters select {
-    padding: 8px 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    font-size: 0.95rem;
-    background-color: var(--input-background);
-    color: var(--text-color);
-}
-
-/* Seções de Tarefas */
-.task-section {
-    margin-bottom: 2.5rem;
-}
-
-.section-title {
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 0.5rem;
-}
-
-.task-list-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    min-height: 50px; /* Garante altura para drop em listas vazias */
-    padding: 5px; /* Pequeno padding para facilitar drop */
-}
-
-.empty-message {
-    text-align: center;
-    color: var(--text-color-light);
-    font-style: italic;
-    padding: 20px;
-    border: 1px dashed var(--border-color);
-    border-radius: 8px;
-    margin-top: 20px;
-}
-.hidden {
-    display: none;
-}
-
-/* Tarefa Individual */
-.task {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--card-background-color);
-    padding: 15px 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--shadow-color);
-    border: 5px solid var(--task-border);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease;
-    cursor: grab; /* Indica que é arrastável */
-    color: var(--task-text-color);
-}
-
-.task:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px var(--shadow-color);
-}
-
-.task strong {
-    font-size: 1.1rem;
-    margin-right: 10px;
-}
-
-.task .task-priority-badge,
-.task .task-category-badge {
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    margin-left: 8px;
-    text-transform: capitalize;
-}
-
-.task-priority-badge.prioridade-baixa {
-    background-color: #d4edda;
-    color: #155724;
-}
-.task-priority-badge.prioridade-média {
-    background-color: #fff3cd;
-    color: #856404;
-}
-.task-priority-badge.prioridade-alta {
-    background-color: #f8d7da;
-    color: #721c24;
-}
-
-body.dark-mode .task-priority-badge.prioridade-baixa {
-    background-color: #28a745;
-    color: white;
-}
-body.dark-mode .task-priority-badge.prioridade-média {
-    background-color: #ffc107;
-    color: #333;
-}
-body.dark-mode .task-priority-badge.prioridade-alta {
-    background-color: #dc3545;
-    color: white;
-}
-
-.task-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
-}
-
-/* Estilo base comum para todos os botões */
-.task button {
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.task button .lucide-icon {
-  width: 18px;
-  height: 18px;
-  color: white;
-}
-
-/* Botão CONCLUIR / DESARQUIVAR */
-.task .btn-concluir {
-  background-color: #28a745;
-  color: white;
-}
-.task .btn-concluir:hover:not(:disabled) {
-  background-color: #218838;
-  transform: translateY(-1px);
-}
-
-/* Botão EDITAR */
-.task .btn-editar {
-  background-color: #ffc107;
-  color: white;
-}
-.task .btn-editar:hover:not(:disabled) {
-  background-color: #e0a800;
-  transform: translateY(-1px);
-}
-
-/* Botão EXCLUIR */
-.task .btn-excluir {
-  background-color: #dc3545;
-  color: white;
-}
-.task .btn-excluir:hover:not(:disabled) {
-  background-color: #c82333;
-  transform: translateY(-1px);
-}
-
-/* Botão POMODORO */
-.task .btn-pomodoro {
-  background-color: #17a2b8;
-  color: white;
-}
-.task .btn-pomodoro:hover:not(:disabled) {
-  background-color: #138496;
-  transform: translateY(-1px);
-}
-
-
-/* Específicos para botões de tarefa */
-.task button.conclude-button { background-color: #28a745; } 
-.task button.conclude-button:hover { background-color: #218838; }
-.task button.edit-button { background-color: #ffc107; } 
-.task button.edit-button:hover { background-color: #e0a800; }
-.task button.delete-button { background-color: #dc3545; } 
-.task button.delete-button:hover { background-color: #c82333; }
-
-
-/* Estilos para Drag & Drop */
-.task.dragging {
-    opacity: 0.5;
-    border: 2px dashed var(--primary-color);
-}
-
-.task-list-container.drag-over-container {
-    border: 2px dashed var(--primary-color);
-    background-color: var(--background-color); /* Usar background mais suave */
-}
-body.dark-mode .task-list-container.drag-over-container {
-    background-color: var(--card-background-color);
-}
-
-.task.drag-over-top {
-    border-top: 2px solid var(--primary-color);
-}
-.task.drag-over-bottom {
-    border-bottom: 2px solid var(--primary-color);
-}
-
-
-/* --- Modal de Edição --- */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--modal-overlay-background);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.modal-overlay.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.modal-content {
-    background-color: var(--modal-background);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 90%;
-    max-width: 500px;
-    transform: translateY(-20px);
-    transition: transform 0.3s ease;
-}
-
-.modal-overlay.visible .modal-content {
-    transform: translateY(0);
-}
-
-.modal-title {
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-.modal-content .form-group {
-    margin-bottom: 1rem;
-}
-
-.modal-content label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-.modal-content input[type="text"],
-.modal-content input[type="datetime-local"],
-.modal-content select {
-    width: calc(100% - 20px); /* Ajuste para padding */
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    font-size: 1rem;
-    background-color: var(--input-background);
-    color: var(--text-color);
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 1.5rem;
-}
-
-.modal-buttons button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.2s ease;
-}
-
-.save-button {
-    background-color: var(--primary-color);
-    color: white;
-}
-.save-button:hover {
-    background-color: var(--button-primary-hover);
-}
-
-.cancel-button {
-    background-color: var(--secondary-color);
-    color: white;
-}
-.cancel-button:hover {
-    background-color: var(--button-secondary-hover);
-}
-
-
-form input[type="text"],
-form select {
-    /* ... (outros estilos) ... */
-    border: 1px solid var(--input-border); /* Usar a nova variável de borda */
-    background-color: var(--input-background); /* Usar a nova variável de fundo */
-    color: var(--text-color); /* Usar a variável de cor de texto principal */
-}
-
-form input[type="text"]::placeholder {
-    color: var(--placeholder-color); /* Usar a nova variável de placeholder */
-}
-
-/* Ajuste para o título no cabeçalho */
-
-.sun-icon {
-    color: orange; /* Mantenha uma cor que se destaque no modo claro */
-}
-.moon-icon {
-    color: skyblue; /* Mantenha uma cor que se destaque no modo escuro */
-}
-
-
-/* Base */
-body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-
-
-/* Botão de Navegação (Pomodoro) */
-.nav-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 15px;
-    background-color: var(--button-secondary-background); /* Usando secondary para o Pomodoro */
-    color: var(--text-color);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9em;
-    font-weight: 600;
-    text-decoration: none; /* Para links */
-    transition: background-color 0.3s ease, color 0.3s ease;
-    box-shadow: 0 2px 5px var(--shadow-color);
-}
-
-.nav-button:hover {
-    background-color: var(--button-secondary-hover);
-    transform: translateY(-1px);
-}
-
-.nav-button .lucide-icon {
-    width: 20px;
-    height: 20px;
-    color: var(--text-color);
-}
-
-.nav-button .button-text {
-    white-space: nowrap; /* Evita que o texto quebre */
-}
-
-/* Theme Toggle Button */
-#theme-toggle {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 15px;
-    background-color: white; /* Cor de fundo no modo CLARO */
-    color: var(--text-color); /* Cor do texto/ícone no modo CLARO (controlado pela variável) */
-    border: 1px solid var(--border-color); /* Cor da borda no modo CLARO (controlado pela variável) */
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9em;
-    font-weight: 600;
-    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 2px 5px var(--shadow-color);
-}
-
-#theme-toggle:hover {
-    background-color: #b1b1b1; /* Cor de fundo no hover (no modo CLARO) */
-    transform: translateY(-1px);
-}
-
-#theme-toggle .icon {
-    width: 20px;
-    height: 20px;
-}
-
-body.dark-mode .sun-icon {
-    display: none;
-}
-
-body:not(.dark-mode) .moon-icon {
-    display: none;
-}
-
-.sun-icon {
-    color: orange; /* Mantenha uma cor que se destaque no modo claro */
-}
-.moon-icon {
-    color: skyblue; /* Mantenha uma cor que se destaque no modo escuro */
-}
-/* Main Content */
-main {
-    flex-grow: 1; /* Permite que o conteúdo principal ocupe o espaço restante */
-    padding: 20px;
-    max-width: 900px;
-    margin: 20px auto;
-    background-color: var(--background-color);
-    border-radius: 8px;
-}
-
-/* Form Styles */
-#task-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 30px;
-    padding: 20px;
-    background-color: var(--card-background-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--shadow-color);
-    align-items: center;
-}
-
-#task-form input[type="text"],
-#task-form select {
-    flex: 1; /* Permite que cresçam para preencher o espaço */
-    min-width: 150px; /* Largura mínima para evitar que fiquem muito pequenos */
-    padding: 12px;
-    border: 1px solid var(--input-border);
-    border-radius: 8px;
-    background-color: var(--input-background);
-    color: var(--text-color);
-    font-size: 1em;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#task-form input[type="text"]:focus,
-#task-form select:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-#task-form input[type="text"]::placeholder {
-    color: var(--placeholder-color);
-}
-
-#task-form button[type="submit"] {
-    padding: 12px 20px;
-    background-color: var(--button-primary-background);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#task-form button[type="submit"]:hover {
-    background-color: var(--button-primary-hover);
-    transform: translateY(-1px);
-}
-
-/* Filters Section */
-.filters {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 25px;
-    padding: 15px 20px;
-    background-color: var(--card-background-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--shadow-color);
-}
-
-.filters label {
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-.filters select {
-    padding: 8px 12px;
-    border: 1px solid var(--input-border);
-    border-radius: 8px;
-    background-color: var(--input-background);
-    color: var(--text-color);
-    font-size: 0.95em;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.filters select:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-
-/* Task Sections */
-.task-section {
-    margin-bottom: 30px;
-    background-color: var(--card-background-color);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--shadow-color);
-}
-
-.section-title {
-    color: var(--primary-color);
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 10px;
-}
-
-.task-list-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Espaçamento entre os itens da tarefa */
-}
-
-.empty-message {
-    text-align: center;
-    color: var(--text-color-light);
-    font-style: italic;
-    padding: 20px;
-    border: 1px dashed var(--border-color);
-    border-radius: 8px;
-    background-color: var(--background-color);
-}
-
-.empty-message.hidden {
-    display: none;
-}
-
-/* Task Item (Correção para as tags) */
-.task-item {
-    display: flex;
-    align-items: center; /* Alinha verticalmente os itens */
-    justify-content: space-between; /* Espaça o nome, tags e botões */
-    padding: 15px;
-    background-color: var(--card-background-color);
-    border-left: 5px solid var(--primary-color); /* A barra azul à esquerda */
-    border-radius: 8px;
-    box-shadow: 0 2px 4px var(--shadow-color);
-    flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas menores */
-    gap: 10px; /* Espaçamento entre os principais grupos dentro do item */
-}
-
-.task-item.completed {
-    border-left-color: var(--secondary-color);
-    opacity: 0.7;
-    background-color: var(--completed-task-background);
-}
-
-.task-name {
-    font-weight: 600;
-    font-size: 1.1em;
-    color: var(--text-color);
-    flex-grow: 1; /* Permite que o nome ocupe o espaço restante */
-}
-
-/* Contêiner para as tags de prioridade e categoria */
-.task-tags {
-    display: flex; /* Torna as tags flexíveis para ficarem lado a lado */
-    gap: 10px; /* Espaçamento entre as tags */
-    align-items: center;
-    flex-wrap: wrap; /* Permite que as tags quebrem a linha se houver muitas */
-    margin-right: 15px; /* Espaçamento antes dos botões de ação */
-}
-
-/* Estilos para as tags individuais */
-.priority-tag,
-.category-tag {
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.85em;
-    font-weight: 600;
-    white-space: nowrap; /* Evita que o texto da tag quebre */
-    color: var(--task-text-color); /* Garante que o texto da tag seja visível */
-}
-
-/* Cores das tags de prioridade */
-.priority-tag.baixa {
-    background-color: var(--task-background-low);
-}
-.priority-tag.média {
-    background-color: var(--task-background-medium);
-}
-.priority-tag.alta {
-    background-color: var(--task-background-high);
-}
-
-/* Cores das tags de categoria (exemplo) */
-.category-tag {
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-}
-body.dark-mode .category-tag {
-    background-color: var(--secondary-color); /* Pode ser ajustado para um tom diferente no dark mode */
-}
-
-/* Task Actions (Botões dentro do item de tarefa) */
-.task-actions {
-    display: flex;
-    gap: 8px; /* Espaçamento entre os botões */
-    flex-wrap: wrap;
-    margin-left: auto; /* Empurra os botões para a direita */
-}
-
-.task-actions button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    color: white; /* Texto dos botões de ação */
-}
-
-.task-actions .complete-button {
-    background-color: #28a745; /* Verde para Concluir */
-}
-.task-actions .complete-button:hover {
-    background-color: #218838;
-}
-
-.task-actions .edit-button {
-    background-color: #007bff; /* Azul para Editar */
-}
-.task-actions .edit-button:hover {
-    background-color: #0056b3;
-}
-
-.task-actions .delete-button {
-    background-color: #dc3545; /* Vermelho para Excluir */
-}
-.task-actions .delete-button:hover {
-    background-color: #c82333;
-}
-
-.task-actions .pomodoro-button {
-    background-color: #6c757d; /* Cinza para Pomodoro */
-}
-.task-actions .pomodoro-button:hover {
-    background-color: #5a6268;
-}
-
-/* Export Options */
-.export-options {
-    margin-top: 40px;
-    padding: 20px;
-    background-color: var(--card-background-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--shadow-color);
-    text-align: center;
-}
-
-.export-options h3 {
-    color: var(--text-color);
-    margin-top: 0;
-    margin-bottom: 15px;
-}
-
-.export-button {
-    padding: 10px 15px;
-    margin: 5px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.95em;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.export-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-1px);
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-    background-color: var(--header-background-color);
-    color: var(--text-color-light);
-    box-shadow: 0 -2px 4px var(--shadow-color);
-}
-
-/* Modal Styles */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--modal-overlay-background);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content {
-    background-color: var(--modal-background);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    color: var(--text-color);
-}
-
-.modal-title {
-    color: var(--primary-color);
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 10px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-.modal-content input[type="text"],
-.modal-content select,
-.modal-content input[type="datetime-local"] {
-    width: calc(100% - 24px); /* Ajuste para padding */
-    padding: 12px;
-    border: 1px solid var(--input-border);
-    border-radius: 8px;
-    background-color: var(--input-background);
-    color: var(--text-color);
-    font-size: 1em;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.modal-content input[type="text"]:focus,
-.modal-content select:focus,
-.modal-content input[type="datetime-local"]:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 25px;
-}
-
-.modal-buttons button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.save-button {
-    background-color: var(--button-primary-background);
-    color: white;
-}
-
-.save-button:hover {
-    background-color: var(--button-primary-hover);
-    transform: translateY(-1px);
-}
-
-.cancel-button {
-    background-color: var(--button-secondary-background);
-    color: white; /* ou var(--text-color) dependendo do contraste */
-}
-
-.cancel-button:hover {
-    background-color: var(--button-secondary-hover);
-    transform: translateY(-1px);
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-
-    .header-buttons-group {
-        width: 100%;
-        justify-content: center; /* Centraliza os botões quando em coluna */
-    }
-
-    #task-form {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    #task-form input[type="text"],
-    #task-form select,
-    #task-form button[type="submit"] {
-        width: 100%;
-        min-width: unset; /* Remove largura mínima em telas pequenas */
-    }
-
-    .filters {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .filters select {
-        width: 100%;
-    }
-
-    .task-item {
-        flex-direction: column;
-        align-items: flex-start; /* Alinha o conteúdo à esquerda */
-        gap: 10px;
-    }
-
-    .task-name {
-        width: 100%; /* Ocupa a largura total */
-        text-align: center; /* Centraliza o nome */
-    }
-
-    .task-tags {
-        width: 100%;
-        justify-content: center; /* Centraliza as tags */
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .task-actions {
-        width: 100%;
-        justify-content: center; /* Centraliza os botões de ação */
-        margin-left: 0;
-    }
-
-    .export-options {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-
-
-/* Base */
-body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Header */
-
-
-/* Botão de Navegação (Pomodoro) */
-.nav-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 15px;
-    background-color: var(--button-secondary-background); /* Usando secondary para o Pomodoro */
-    color: var(--text-color);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9em;
-    font-weight: 600;
-    text-decoration: none; /* Para links */
-    transition: background-color 0.3s ease, color 0.3s ease;
-    box-shadow: 0 2px 5px var(--shadow-color);
-}
-
-.nav-button:hover {
-    background-color: var(--button-secondary-hover);
-    transform: translateY(-1px);
-}
-
-.nav-button .lucide-icon {
-    width: 20px;
-    height: 20px;
-    color: var(--text-color);
-}
-
-.nav-button .button-text {
-    white-space: nowrap; /* Evita que o texto quebre */
-}
-
-#theme-toggle .icon {
-    width: 20px;
-    height: 20px;
-}
-
-body.dark-mode .sun-icon {
-    display: none;
-}
-
-body:not(.dark-mode) .moon-icon {
-    display: none;
-}
-
-.sun-icon {
-    color: orange; /* Mantenha uma cor que se destaque no modo claro */
-}
-.moon-icon {
-    color: skyblue; /* Mantenha uma cor que se destaque no modo escuro */
-}
-
-/* NOVO BLOCO: Estilos específicos para o botão no MODO ESCURO */
-body.dark-mode #theme-toggle{
-    background-color: #4A5568; /* Cinza escuro */
-    border-color: #718096;
-    color: white;
-}
-
-/* Main Content */
-main {
-    flex-grow: 1; /* Permite que o conteúdo principal ocupe o espaço restante */
-    padding: 20px;
-    max-width: 900px;
-    margin: 20px auto;
-    background-color: var(--background-color);
-    border-radius: 8px;
-}
-
-/* Form Styles */
-#task-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 30px;
-    padding: 20px;
-    background-color: var(--card-background-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--shadow-color);
-    align-items: center;
-}
-
-#task-form input[type="text"],
-#task-form select {
-    flex: 1; /* Permite que cresçam para preencher o espaço */
-    min-width: 150px; /* Largura mínima para evitar que fiquem muito pequenos */
-    padding: 12px;
-    border: 1px solid var(--input-border);
-    border-radius: 8px;
-    background-color: var(--input-background);
-    color: var(--text-color);
-    font-size: 1em;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#task-form input[type="text"]:focus,
-#task-form select:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-#task-form input[type="text"]::placeholder {
-    color: var(--placeholder-color);
-}
-
-#task-form button[type="submit"] {
-    padding: 12px 20px;
-    background-color: var(--button-primary-background);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-#task-form button[type="submit"]:hover {
-    background-color: var(--button-primary-hover);
-    transform: translateY(-1px);
-}
-
-/* Filters Section */
-.filters {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 25px;
-    padding: 15px 20px;
-    background-color: var(--card-background-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--shadow-color);
-}
-
-.filters label {
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-.filters select {
-    padding: 8px 12px;
-    border: 1px solid var(--input-border);
-    border-radius: 8px;
-    background-color: var(--input-background);
-    color: var(--text-color);
-    font-size: 0.95em;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.filters select:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-
-/* Task Sections */
-.task-section {
-    margin-bottom: 30px;
-    background-color: var(--card-background-color);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--shadow-color);
-}
-
-.section-title {
-    color: var(--primary-color);
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 10px;
-}
-
-.task-list-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Espaçamento entre os itens da tarefa */
-    min-height: 50px; /* Garante altura para drop em listas vazias */
-    padding: 5px; /* Pequeno padding para facilitar drop */
-}
-
-.empty-message {
-    text-align: center;
-    color: var(--text-color-light);
-    font-style: italic;
-    padding: 20px;
-    border: 1px dashed var(--border-color);
-    border-radius: 8px;
-    background-color: var(--background-color);
-}
-.hidden {
-    display: none;
-}
-
-/* Task Item (Correção para as tags) */
-.task { /* Renomeei de .task-item para .task para corresponder ao JS */
-    display: flex;
-    align-items: center; /* Alinha verticalmente os itens */
-    justify-content: space-between; /* Espaça o nome, tags e botões */
-    padding: 15px;
-    background-color: var(--card-background-color);
-    border-left: 5px solid var(--primary-color); /* A barra azul à esquerda */
-    border-radius: 8px;
-    box-shadow: 0 2px 4px var(--shadow-color);
-    flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas menores */
-    gap: 10px; /* Espaçamento entre os principais grupos dentro do item */
-    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease;
-    cursor: grab; /* Indica que é arrastável */
-    color: var(--task-text-color);
-}
-
-.task:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px var(--shadow-color);
-}
-
-.task.completed { /* Renomeei de .task-item.completed para .task.completed */
-    border-left-color: var(--secondary-color);
-    opacity: 0.7;
-    background-color: var(--completed-task-background);
-}
-
-.task strong { /* Corresponde ao strong dentro de .task */
-    font-weight: 600;
-    font-size: 1.1em;
-    color: var(--text-color);
-    flex-grow: 1; /* Permite que o nome ocupe o espaço restante */
-}
-
-/* Contêiner para as tags de prioridade e categoria */
-.task-tags { /* Não existe no seu HTML/JS atual, mas pode ser útil se você agrupar */
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-right: 15px;
-}
-
-/* Estilos para as tags individuais */
-.task-priority-badge, /* Corresponde ao JS */
-.task-category-badge { /* Corresponde ao JS */
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.85em;
-    font-weight: 600;
-    white-space: nowrap;
-    color: var(--task-text-color);
-}
-
-/* Cores das tags de prioridade */
-.task-priority-badge.prioridade-baixa {
-    background-color: var(--task-background-low);
-}
-.task-priority-badge.prioridade-média {
-    background-color: var(--task-background-medium);
-}
-.task-priority-badge.prioridade-alta {
-    background-color: var(--task-background-high);
-}
-
-/* Cores das tags de categoria (exemplo) */
-.task-category-badge {
-    background-color: var(--secondary-color);
-    color: white; /* Cor do texto para contraste */
-}
-
-body.dark-mode .task-category-badge {
-    background-color: var(--secondary-color);
-}
-
-/* Cores específicas para categorias */
-.task-category-badge.categoria-estudo { background-color: #006618; color: white; }
-.task-category-badge.categoria-trabalho { background-color: #00ff95; color: white; }
-.task-category-badge.categoria-pessoal { background-color: #ffc107; color: #333; }
-.task-category-badge.categoria-outros { background-color: #000000; color: white; }
-
-body.dark-mode .task-category-badge.categoria-estudo { background-color: #48bb78; }
-body.dark-mode .task-category-badge.categoria-trabalho { background-color: #63b3ed; }
-body.dark-mode .task-category-badge.categoria-pessoal { background-color: #ecc94b; color: #333; }
-body.dark-mode .task-category-badge.categoria-outros { background-color: #000000; }
-
-
-/* Task Actions (Botões dentro do item de tarefa) */
-.task-actions {
-    display: flex;
-    gap: 8px; /* Espaçamento entre os botões */
-    flex-wrap: wrap;
-    margin-left: auto; /* Empurra os botões para a direita */
-}
-
-/* Estilo base comum para todos os botões de tarefa */
-.task button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    color: white; /* Texto dos botões de ação */
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: inline-flex; /* Para alinhar ícone e texto */
-    align-items: center;
-    gap: 5px;
-}
-
-.task button .lucide-icon {
-    width: 18px;
-    height: 18px;
-    color: white; /* Cor padrão dos ícones nos botões de tarefa */
-}
-
-/* Botão CONCLUIR / DESARQUIVAR */
-.task button.btn-concluir { /* Adicionado 'button' para maior especificidade */
-    background-color: #28a745; /* Verde para Concluir */
-}
-.task button.btn-concluir:hover:not(:disabled) {
-    background-color: #218838;
-}
-
-/* Botão EDITAR */
-.task button.btn-editar { /* Adicionado 'button' para maior especificidade */
-    background-color: #007bff; /* Azul para Editar */
-}
-.task button.btn-editar:hover:not(:disabled) {
-    background-color: #0056b3;
-}
-
-/* Botão EXCLUIR */
-.task button.btn-excluir { /* Adicionado 'button' para maior especificidade */
-    background-color: #dc3545; /* Vermelho para Excluir */
-}
-.task button.btn-excluir:hover:not(:disabled) {
-    background-color: #c82333;
-}
-
-/* Botão POMODORO */
-.task button.pomodoro-button { /* Corrigido de .btn-pomodoro para .pomodoro-button */
-    background-color: #6c757d; /* Cinza para Pomodoro */
-}
-.task button.pomodoro-button:hover:not(:disabled) {
-    background-color: #5a6268;
-}
-
-/* Estilos para Drag & Drop */
-.task.dragging {
-    opacity: 0.5;
-    border: 2px dashed var(--primary-color);
-}
-
-.task-list-container.drag-over-container {
-    border: 2px dashed var(--primary-color);
-    background-color: var(--background-color); /* Usar background mais suave */
-}
-body.dark-mode .task-list-container.drag-over-container {
-    background-color: var(--card-background-color);
-}
-
-.task.drag-over-top {
-    border-top: 2px solid var(--primary-color);
-}
-.task.drag-over-bottom {
-    border-bottom: 2px solid var(--primary-color);
-}
-
-
-/* --- Modal de Edição --- */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--modal-overlay-background);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0; /* Escondido por padrão */
-    visibility: hidden; /* Escondido por padrão */
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.modal-overlay.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.modal-content {
-    background-color: var(--modal-background);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 90%;
-    max-width: 500px;
-    transform: translateY(-20px); /* Animação de entrada */
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    opacity: 0; /* Escondido por padrão */
-    color: var(--text-color);
-}
-
-.modal-overlay.visible .modal-content {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.modal-title {
-    color: var(--primary-color);
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 10px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-.modal-content input[type="text"],
-.modal-content input[type="datetime-local"],
-.modal-content select {
-    width: calc(100% - 24px); /* Ajuste para padding */
-    padding: 12px;
-    border: 1px solid var(--input-border);
-    border-radius: 8px;
-    background-color: var(--input-background);
-    color: var(--text-color);
-    font-size: 1em;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.modal-content input[type="text"]:focus,
-.modal-content select:focus,
-.modal-content input[type="datetime-local"]:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 25px;
-}
-
-.modal-buttons button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.modal-save-button { /* Corrigido de .save-button para .modal-save-button */
-    background-color: var(--button-primary-background);
-    color: white;
-}
-
-.modal-save-button:hover {
-    background-color: var(--button-primary-hover);
-    transform: translateY(-1px);
-}
-
-.modal-cancel-button { /* Corrigido de .cancel-button para .modal-cancel-button */
-    background-color: var(--button-secondary-background);
-    color: white;
-}
-
-.modal-cancel-button:hover {
-    background-color: var(--button-secondary-hover);
-    transform: translateY(-1px);
-}
-
-/* Export Options */
-.export-options {
-    margin-top: 40px;
-    padding: 20px;
-    background-color: var(--card-background-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--shadow-color);
-    text-align: center;
-}
-
-.export-options h3 {
-    color: var(--text-color);
-    margin-top: 0;
-    margin-bottom: 15px;
-}
-
-.export-button {
-    padding: 10px 15px;
-    margin: 5px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.95em;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.export-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-1px);
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-    background-color: var(--header-background-color);
-    color: var(--text-color-light);
-    box-shadow: 0 -2px 4px var(--shadow-color);
-}
-
-/* Estilo para o botão de Exportar para TXT */
-#export-txt-button {
-    background-color: #20B2AA; /* Azul esverdeado */
-    color: white;
-}
-
-#export-txt-button:hover {
-    background-color: #008080;
-}
-
-/* Estilo para o botão de Exportar para JSON */
-#export-json-button {
-    background-color: #D2691E; /* Marrom chocolate */
-    color: white;
-}
-
-#export-json-button:hover {
-    background-color: #A0522D;
-}
-
-/* Estilo para o botão 'Cancelar' do modal de edição */
-/* Usando o ID para maior especificidade */
-#cancel-edit-button {
-    background-color: #c82333; /* Vermelho claro */
-    color: white;
-}
-
-#cancel-edit-button:hover {
-    background-color: #dc3545;
-    color: white;
-}
-
-/* Estilo para o botão de exclusão crítico (adicionado via JS para tarefas de alta prioridade) */
-.btn-excluir-critico {
-    background-color: #c82333; /* Vermelho mais forte */
-    color: white;
-}
-
-.btn-excluir-critico:hover {
-    background-color:#dc3545;
-    transform: translateY(-1px);
-}
-
-/* Estilo para o botão 'Editar' de tarefas urgentes (exemplo, se você adicionar a classe no JS) */
-.btn-editar-urgente {
-    background-color: #f39c12; /* Laranja forte */
-    color: white;
-    border: 1px solid #e67e22;
-}
-
-.btn-editar-urgente:hover {
-    background-color: #e67e22;
-    transform: translateY(-1px);
-}
-
-/* Estilo para o botão 'Concluir' quando a tarefa é de prioridade alta */
-.prioridade-alta .btn-concluir {
-    background-color: #2ecc71; /* Um verde mais vibrante */
-    color: white;
-}
-
-.prioridade-alta .btn-concluir:hover {
-    background-color: #27ae60;
-}
-
-/* Estilo para botões dentro de tarefas arquivadas (para desabilitar/mudar cor) */
-.task.arquivada button {
-    opacity: 0.7; /* Torna os botões dentro de tarefas arquivadas um pouco transparentes */
-    cursor: default;
-}
-
-.task.arquivada button.btn-editar {
-    background-color: #95a5a6; /* Cor específica para o botão editar de tarefas arquivadas */
-    cursor: not-allowed;
-}
-
-.task.arquivada button.btn-editar:hover {
-    background-color: #95a5a6; /* Não muda no hover se desabilitado */
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-
-    .header-buttons-group {
-        width: 100%;
-        justify-content: center; /* Centraliza os botões quando em coluna */
-    }
-
-    #task-form {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    #task-form input[type="text"],
-    #task-form select,
-    #task-form button[type="submit"] {
-        width: 100%;
-        min-width: unset; /* Remove largura mínima em telas pequenas */
-    }
-
-    .filters {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .filters select {
-        width: 100%;
-    }
-
-    .task-item { /* Não existe mais, use .task */
-        flex-direction: column;
-        align-items: flex-start; /* Alinha o conteúdo à esquerda */
-        gap: 10px;
-    }
-
-    .task-name { /* Não existe mais, use .task strong */
-        width: 100%; /* Ocupa a largura total */
-        text-align: center; /* Centraliza o nome */
-    }
-
-    .task-tags {
-        width: 100%;
-        justify-content: center; /* Centraliza as tags */
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .task-actions {
-        width: 100%;
-        justify-content: center; /* Centraliza os botões de ação */
-        margin-left: 0;
-    }
-
-    .export-options {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-/* Variáveis de Cor (Modo Claro) */
 :root {
-    --background-color: #f0f2f5; /* Um cinza mais suave para o fundo geral */
-    --text-color: #212529; /* Texto principal mais escuro */
-    --text-color-light: #5a6268; /* Texto secundário com bom contraste */
-    --primary-color: #007bff; /* Azul para destaque */
-    --secondary-color: #6c757d; /* Cinza para elementos secundários */
+    --background-color: #f0f2f5;
+    --text-color: #212529;
+    --text-color-light: #5a6268;
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
     --header-background-color: #ffffff;
     --card-background-color: #ffffff;
-    --border-color: #ced4da; /* Borda um pouco mais visível */
-    --shadow-color: rgba(0,0,0,0.1); /* Sombra mais perceptível */
+    --border-color: #ced4da;
+    --shadow-color: rgba(0,0,0,0.1);
     --input-background: #ffffff;
-    --input-border: #adb5bd; /* Borda mais escura para inputs */
-    --button-primary-background: #28a745; /* Botão principal (verde) */
+    --input-border: #adb5bd;
+    --button-primary-background: #28a745;
     --button-primary-hover: #218838;
-    --button-secondary-background: #6c757d; /* Botão secundário (cinza) */
+    --button-secondary-background: #6c757d;
     --button-secondary-hover: #5a6268;
-    --task-background-low: #e6ffe6; /* Verde claro para prioridade baixa */
-    --task-background-medium: #fff8e1; /* Amarelo claro para prioridade média */
-    --task-background-high: #ffebee; /* Vermelho claro para prioridade alta */
-    --task-border: #e0e0e0; /* Borda padrão da tarefa */
-    --task-text-color: #333; /* Cor do texto dentro das tags de prioridade */
+    --task-background-low: #e6ffe6;
+    --task-background-medium: #fff8e1;
+    --task-background-high: #ffebee;
+    --task-border: #e0e0e0;
+    --task-text-color: #333;
     --modal-background: #ffffff;
-    --modal-overlay-background: rgba(0, 0, 0, 0.6); /* Overlay mais escuro */
-    --placeholder-color: #6c757d; /* Placeholder mais escuro */
-    --completed-task-background: #e9ecef; /* Fundo para tarefas concluídas */
-    --completed-task-text: #868e96; /* Texto para tarefas concluídas */
+    --modal-overlay-background: rgba(0, 0, 0, 0.6);
+    --placeholder-color: #6c757d;
+    --completed-task-background: #e9ecef;
+    --completed-task-text: #868e96;
 }
 
-/* Modo Escuro */
 body.dark-mode {
     --background-color: #1a202c;
     --text-color: #e2e8f0;
@@ -2725,20 +51,13 @@ body.dark-mode {
     --task-background-low: #38a169;
     --task-background-medium: #ecc94b;
     --task-background-high: #e53e3e;
-    --task-border: #5a6268; /* Borda da tarefa no modo escuro */
-    --task-text-color: #e2e8f0; /* Texto claro para tags em modo escuro */
+    --task-border: #5a6268;
+    --task-text-color: #e2e8f0;
     --modal-background: #2d3748;
     --modal-overlay-background: rgba(0, 0, 0, 0.75);
     --placeholder-color: #a0aec0;
     --completed-task-background: #3a4556;
     --completed-task-text: #6b7a8d;
-}
-
-/* Base */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 body {
@@ -2751,23 +70,32 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+header {
+    background-color: var(--header-background-color);
+    color: var(--text-color);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
 header h1 {
     margin: 0;
     font-size: 1.8rem;
-    color: var(--text-color); /* Garante que o título use a cor de texto principal */
-    display: flex; /* Para alinhar o ícone com o texto */
+    color: var(--text-color);
+    display: flex;
     align-items: center;
-    gap: 8px; /* Espaçamento entre o ícone e o texto */
+    gap: 8px;
 }
 
-/* NOVO ESTILO: Ícone do Logo no Header */
 .header-logo-icon {
-    width: 28px; /* Tamanho do ícone */
+    width: 28px;
     height: 28px;
-    /* As cores são controladas pelo fill e stroke, que por padrão usam currentColor do pai (h1) */
-    /* Você pode sobrescrever aqui se quiser uma cor diferente da do texto do h1 */
-    fill: var(--primary-color); /* Cor de preenchimento do quadrado */
-    stroke: var(--primary-color); /* Cor da borda do quadrado */
+    fill: var(--primary-color);
+    stroke: var(--primary-color);
     transition: fill 0.3s ease, stroke 0.3s ease;
 }
 
@@ -2776,30 +104,97 @@ body.dark-mode .header-logo-icon {
     stroke: var(--primary-color);
 }
 
+.header-buttons-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
+.nav-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background-color: var(--button-secondary-background);
+    color: var(--text-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
 
+.nav-button:hover {
+    background-color: var(--button-secondary-hover);
+    transform: translateY(-1px);
+}
+
+.nav-button .lucide-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-color);
+}
+
+.nav-button .button-text {
+    white-space: nowrap;
+}
+
+#theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background-color: #8A2BE2;
+    color: white;
+    border: 1px solid #9370DB;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+#theme-toggle:hover {
+    background-color: #9932CC;
+    border-color: #BA55D3;
+    transform: translateY(-1px);
+}
 
 #theme-toggle .icon {
     width: 20px;
     height: 20px;
+    display: block;
 }
 
-body.dark-mode .sun-icon {
+body.dark-mode #theme-toggle {
+    background-color: #4A5568;
+    border-color: #718096;
+    color: white;
+}
+
+body.dark-mode #theme-toggle .sun-icon {
     display: none;
 }
 
-body:not(.dark-mode) .moon-icon {
+body:not(.dark-mode) #theme-toggle .moon-icon {
     display: none;
+}
+
+body.dark-mode #theme-toggle .moon-icon {
+    display: block;
 }
 
 .sun-icon {
-    color: orange; /* Mantenha uma cor que se destaque no modo claro */
+    color: orange;
 }
 .moon-icon {
-    color: skyblue; /* Mantenha uma cor que se destaque no modo escuro */
+    color: skyblue;
 }
 
-/* Main Content */
 main {
     flex-grow: 1;
     padding: 20px;
@@ -2809,7 +204,6 @@ main {
     border-radius: 8px;
 }
 
-/* Form Styles */
 #task-form {
     display: flex;
     flex-wrap: wrap;
@@ -2863,7 +257,6 @@ main {
     transform: translateY(-1px);
 }
 
-/* Filters Section */
 .filters {
     display: flex;
     align-items: center;
@@ -2896,8 +289,6 @@ main {
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
-
-/* Task Sections */
 .task-section {
     margin-bottom: 30px;
     background-color: var(--card-background-color);
@@ -2918,9 +309,9 @@ main {
 .task-list-container {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Espaçamento entre os itens da tarefa */
-    min-height: 50px; /* Garante altura para drop em listas vazias */
-    padding: 5px; /* Pequeno padding para facilitar drop */
+    gap: 15px;
+    min-height: 50px;
+    padding: 5px;
 }
 
 .empty-message {
@@ -2932,12 +323,12 @@ main {
     border-radius: 8px;
     background-color: var(--background-color);
 }
-.hidden {
+
+.empty-message.hidden {
     display: none;
 }
 
-/* Task Item */
-.task { /* Usando .task conforme o JS */
+.task {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -2971,8 +362,7 @@ main {
     flex-grow: 1;
 }
 
-/* Contêiner para as tags de prioridade e categoria */
-.task span { /* Ajuste no span do nome da tarefa para alinhar com os badges */
+.task span {
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -2983,7 +373,6 @@ main {
     margin-right: 8px;
 }
 
-/* Estilos para as tags individuais */
 .task-priority-badge,
 .task-category-badge {
     padding: 5px 10px;
@@ -2994,7 +383,6 @@ main {
     color: var(--task-text-color);
 }
 
-/* Cores das tags de prioridade */
 .task-priority-badge.prioridade-baixa {
     background-color: var(--task-background-low);
 }
@@ -3005,7 +393,6 @@ main {
     background-color: var(--task-background-high);
 }
 
-/* Cores das tags de categoria */
 .task-category-badge {
     background-color: var(--secondary-color);
     color: white;
@@ -3015,10 +402,16 @@ body.dark-mode .task-category-badge {
     background-color: var(--secondary-color);
 }
 
+.task-category-badge.categoria-estudo { background-color: #006618; color: white; }
+.task-category-badge.categoria-trabalho { background-color: #00ff95; color: white; }
+.task-category-badge.categoria-pessoal { background-color: #ffc107; color: #333; }
+.task-category-badge.categoria-outros { background-color: #000000; color: white; }
 
+body.dark-mode .task-category-badge.categoria-estudo { background-color: #48bb78; }
+body.dark-mode .task-category-badge.categoria-trabalho { background-color: #63b3ed; }
+body.dark-mode .task-category-badge.categoria-pessoal { background-color: #ecc94b; color: #333; }
+body.dark-mode .task-category-badge.categoria-outros { background-color: #000000; }
 
-
-/* Task Actions (Botões dentro do item de tarefa) */
 .task-actions {
     display: flex;
     gap: 8px;
@@ -3026,7 +419,6 @@ body.dark-mode .task-category-badge {
     margin-left: auto;
 }
 
-/* Estilo base comum para todos os botões de tarefa */
 .task button {
     padding: 8px 12px;
     border: none;
@@ -3046,7 +438,6 @@ body.dark-mode .task-category-badge {
     color: white;
 }
 
-/* Botão CONCLUIR / DESARQUIVAR */
 .task button.btn-concluir {
     background-color: #28a745;
 }
@@ -3054,7 +445,6 @@ body.dark-mode .task-category-badge {
     background-color: #218838;
 }
 
-/* Botão EDITAR */
 .task button.btn-editar {
     background-color: #007bff;
 }
@@ -3062,7 +452,6 @@ body.dark-mode .task-category-badge {
     background-color: #0056b3;
 }
 
-/* Botão EXCLUIR */
 .task button.btn-excluir {
     background-color: #dc3545;
 }
@@ -3070,7 +459,6 @@ body.dark-mode .task-category-badge {
     background-color: #c82333;
 }
 
-/* Botão POMODORO */
 .task button.pomodoro-button {
     background-color: #6c757d;
 }
@@ -3078,7 +466,6 @@ body.dark-mode .task-category-badge {
     background-color: #5a6268;
 }
 
-/* Estilos para Drag & Drop */
 .task.dragging {
     opacity: 0.5;
     border: 2px dashed var(--primary-color);
@@ -3099,8 +486,6 @@ body.dark-mode .task-list-container.drag-over-container {
     border-bottom: 2px solid var(--primary-color);
 }
 
-
-/* --- Modal de Edição --- */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -3198,7 +583,7 @@ body.dark-mode .task-list-container.drag-over-container {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.modal-save-button { /* Corrigido o seletor */
+.modal-save-button {
     background-color: var(--button-primary-background);
     color: white;
 }
@@ -3208,7 +593,7 @@ body.dark-mode .task-list-container.drag-over-container {
     transform: translateY(-1px);
 }
 
-.modal-cancel-button { /* Corrigido o seletor */
+.modal-cancel-button {
     background-color: var(--button-secondary-background);
     color: white;
 }
@@ -3218,7 +603,18 @@ body.dark-mode .task-list-container.drag-over-container {
     transform: translateY(-1px);
 }
 
-/* Export Options */
+.modal-message-text {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+#message-modal-ok-button {
+    margin: 0 auto;
+    display: block;
+}
+
 .export-options {
     margin-top: 40px;
     padding: 20px;
@@ -3252,7 +648,24 @@ body.dark-mode .task-list-container.drag-over-container {
     transform: translateY(-1px);
 }
 
-/* Footer */
+#export-txt-button {
+    background-color: #20B2AA;
+    color: white;
+}
+
+#export-txt-button:hover {
+    background-color: #008080;
+}
+
+#export-json-button {
+    background-color: #D2691E;
+    color: white;
+}
+
+#export-json-button:hover {
+    background-color: #A0522D;
+}
+
 footer {
     text-align: center;
     padding: 20px;
@@ -3262,54 +675,8 @@ footer {
     box-shadow: 0 -2px 4px var(--shadow-color);
 }
 
-
-/* --- REGRAS PARA BOTÕES ESPECÍFICOS (Adicionadas ao final para maior especificidade) --- */
-
-/* Estilo para o botão de alternar tema (já existe e você pode sobrepor cores) */
-#theme-toggle {
-    background-color: #8A2BE2; /* Azul violeta */
-    border-color: #9370DB;
-    color: white; /* Garante que o ícone e texto fiquem brancos */
-}
-
-#theme-toggle:hover {
-    background-color: #9932CC; /* Cor ao passar o mouse */
-    border-color: #BA55D3;
-}
-
-/* Estilo para o botão de Exportar para TXT */
-#export-txt-button {
-    background-color: #20B2AA; /* Azul esverdeado */
-    color: white;
-}
-
-#export-txt-button:hover {
-    background-color: #008080;
-}
-
-/* Estilo para o botão de Exportar para JSON */
-#export-json-button {
-    background-color: #D2691E; /* Marrom chocolate */
-    color: white;
-}
-
-#export-json-button:hover {
-    background-color: #A0522D;
-}
-
-/* Estilo para o botão 'Cancelar' do modal de edição */
-#cancel-edit-button {
-    background-color: #c82333; /* Vermelho claro */
-    color: white;
-}
-
-#cancel-edit-button:hover {
-    background-color: #dc3545
-}
-
-/* Estilo para o botão de exclusão crítico (adicionado via JS para tarefas de alta prioridade) */
 .btn-excluir-critico {
-    background-color: #e74c3c; /* Vermelho mais forte */
+    background-color: #e74c3c;
     color: white;
 }
 
@@ -3319,9 +686,8 @@ footer {
     box-shadow: 0 4px 8px rgba(192, 57, 43, 0.6);
 }
 
-/* Estilo para o botão 'Editar' de tarefas urgentes (exemplo, se você adicionar a classe no JS) */
 .btn-editar-urgente {
-    background-color: #f39c12; /* Laranja forte */
+    background-color: #f39c12;
     color: white;
     border: 1px solid #e67e22;
 }
@@ -3331,9 +697,8 @@ footer {
     transform: translateY(-1px);
 }
 
-/* Estilo para o botão 'Concluir' quando a tarefa é de prioridade alta */
 .prioridade-alta .btn-concluir {
-    background-color: #2ecc71; /* Um verde mais vibrante */
+    background-color: #2ecc71;
     color: white;
 }
 
@@ -3341,7 +706,6 @@ footer {
     background-color: #27ae60;
 }
 
-/* Estilo para botões dentro de tarefas arquivadas (para desabilitar/mudar cor) */
 .task.arquivada button {
     opacity: 0.7;
     cursor: default;
@@ -3356,7 +720,6 @@ footer {
     background-color: #95a5a6;
 }
 
-/* Estilos para a seção de tarefas arquivadas */
 .task-section.archived-section {
     background-color: var(--completed-task-background);
     border: 1px dashed var(--border-color);
@@ -3393,7 +756,181 @@ body.dark-mode .task-section.archived-section {
     background-color: var(--button-secondary-hover);
 }
 
-/* Responsividade */
+#back-button {
+    background-color: var(--button-secondary-background);
+    color: var(--text-color);
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+#back-button:hover {
+    background-color: var(--button-secondary-hover);
+}
+
+#back-button .icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-color);
+}
+
+body.dark-mode #back-button {
+    background-color: var(--button-secondary-background);
+    color: var(--text-color);
+}
+
+body.dark-mode #back-button:hover {
+    background-color: var(--button-secondary-hover);
+}
+
+body.dark-mode #back-button .icon {
+    color: var(--text-color);
+}
+
+.pomodoro-timer-controls {
+    background-color: var(--card-background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.pomodoro-timer-controls h2 {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.pomodoro-display {
+    font-family: 'Inter', sans-serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    letter-spacing: 2px;
+    padding: 0.5rem 1rem;
+    background-color: var(--input-background);
+    border-radius: 8px;
+    display: inline-block;
+    min-width: 200px;
+}
+
+.timer-buttons {
+    margin-bottom: 1rem;
+}
+
+.pomodoro-control-button {
+    background-color: var(--button-secondary-background);
+    color: var(--text-color);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0 0.5rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pomodoro-control-button:hover {
+    background-color: var(--button-secondary-hover);
+    transform: translateY(-1px);
+}
+
+.pomodoro-control-button .lucide-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-color);
+}
+
+.current-pomodoro-task-info {
+    font-size: 1.1rem;
+    color: var(--text-color-light);
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+body.dark-mode .pomodoro-timer-controls h2 {
+    color: var(--text-color);
+}
+
+body.dark-mode .pomodoro-display {
+    color: var(--primary-color);
+    background-color: var(--input-background);
+}
+
+body.dark-mode .pomodoro-control-button {
+    background-color: var(--button-secondary-background);
+    color: var(--text-color);
+}
+body.dark-mode .pomodoro-control-button:hover {
+    background-color: var(--button-secondary-hover);
+}
+body.dark-mode .pomodoro-control-button .lucide-icon {
+    color: var(--text-color);
+}
+
+body.dark-mode .current-pomodoro-task-info {
+    color: var(--text-color-light);
+}
+
+@media (min-width: 768px) {
+    #theme-toggle {
+        width: auto;
+        height: auto;
+        border-radius: 20px;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    #theme-toggle .button-text {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+    }
+
+    .task button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .task button .button-text-hidden {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+    }
+
+    .task button .lucide-icon {
+        margin-right: 8px;
+    }
+}
+
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -3427,18 +964,18 @@ body.dark-mode .task-section.archived-section {
         width: 100%;
     }
 
-    .task { /* Usando .task */
+    .task {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
 
-    .task strong { /* Usando .task strong */
+    .task strong {
         width: 100%;
         text-align: center;
     }
 
-    .task span { /* Para as tags de prioridade e categoria dentro do span do nome */
+    .task span {
         width: 100%;
         justify-content: center;
         margin-left: 0;
@@ -3455,69 +992,4 @@ body.dark-mode .task-section.archived-section {
         flex-direction: column;
         align-items: center;
     }
-}
-
-/* ... seus estilos existentes ... */
-
-/* Estilo para o botão de voltar (pode ser o mesmo do theme-toggle) */
-#back-button {
-    background-color: var(--button-background-color);
-    color: var(--button-text-color);
-    border: none;
-    padding: 0.75rem 1.25rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    display: flex; /* Para alinhar o ícone e o texto */
-    align-items: center;
-    gap: 8px; /* Espaçamento entre o ícone e o texto */
-    transition: background-color 0.3s ease;
-}
-
-#back-button:hover {
-    background-color: var(--button-hover-color);
-}
-
-#back-button .icon {
-    width: 20px; /* Tamanho do ícone */
-    height: 20px;
-    color: var(--button-icon-color, var(--button-text-color)); /* Cor do ícone */
-}
-
-/* Se você tiver o modo escuro, adicione estilos para ele também */
-body.dark-mode #back-button {
-    background-color: var(--dark-button-background-color);
-    color: var(--dark-button-text-color);
-}
-
-body.dark-mode #back-button:hover {
-    background-color: var(--dark-button-hover-color);
-}
-
-body.dark-mode #back-button .icon {
-    color: var(--dark-button-icon-color, var(--dark-button-text-color));
-}
-
-/* Certifique-se que o grupo de botões está bem alinhado */
-.header-buttons-group {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Espaçamento entre os botões */
-}
-
-/* ... o restante do seu CSS ... */
-
-/* Estilos para o Modal de Mensagem */
-.modal-message-text {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.1em;
-    color: var(--text-color);
-}
-
-/* Ajustes para o botão OK do modal de mensagem */
-#message-modal-ok-button {
-    margin: 0 auto; /* Centraliza o botão OK */
-    display: block; /* Garante que o margin auto funcione */
 }
