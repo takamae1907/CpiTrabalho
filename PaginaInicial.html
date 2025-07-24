@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Vida - Dashboard</title>
+    <link rel="stylesheet" href="PaginaInicial.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon_io/android-chrome-512x512.png">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <img src="icon/PRISMA 05 ICON.png" alt="Logo Gestor de Tarefas" class="header-logo-img">
+            <span class="header-line"></span>
+            <h1>Minha vida</h1>
+        </header>
+
+        <div class="cards-grid">
+            <a href="index.html" style="text-decoration: none; color: inherit;" class="card-link">
+                <div class="card" data-card-type="gestor-tarefas">
+                    <i class="fas fa-clock add-icon"></i>
+                    <div class="card-content">
+                        <i class="fas fa-clock card-icon"></i>
+                        <h2>Meu Gestor de Tarefas</h2>
+                        <span class="notification-badge" data-card-target="gestor-tarefas">0</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="Spotify.html" style="text-decoration: none; color: inherit;" class="card-link">
+                <div class="card" data-card-type="music">
+                    <i class="fas fa-clock add-icon"></i>
+                    <div class="card-content">
+                        <i class="fas fa-music card-icon"></i>
+                        <h2>Músicas</h2>
+                        <span class="notification-badge" data-card-target="music">0</span>
+                    </div>
+                </div>
+            </a>
+
+            <div class="card" data-card-type="news">
+                <i class="fas fa-clock add-icon"></i>
+                <div class="card-content">
+                    <i class="fas fa-user card-icon"></i>
+                    <h2>Principais Noticias</h2>
+                    <span class="notification-badge" data-card-target="news">0</span>
+                </div>
+            </div>
+
+            <a href="calendario.html" style="text-decoration: none; color: inherit;" class="card-link">
+                <div class="card" data-card-type="calendar">
+                    <i class="fas fa-clock add-icon"></i>
+                    <div class="card-content">
+                        <i class="fas fa-calendar-alt card-icon"></i>
+                        <h2>Calendario</h2>
+                        <span class="notification-badge" data-card-target="calendar">0</span>
+                    </div>
+                </div>
+            </a>
+
+            <div class="card" data-card-type="emails">
+                <i class="fas fa-clock add-icon"></i>
+                <div class="card-content">
+                    <i class="fas fa-hashtag card-icon"></i>
+                    <h2>E-mails</h2>
+                    <span class="notification-badge" data-card-target="emails">0</span>
+                </div>
+            </div>
+
+            <div class="card" data-card-type="contacts">
+                <i class="fas fa-clock add-icon"></i>
+                <div class="card-content">
+                    <i class="fas fa-lightbulb card-icon"></i>
+                    <h2>contatos</h2>
+                    <span class="notification-badge" data-card-target="contacts">0</span>
+                </div>
+            </div>
+
+            <a href="pomodoro.html" style="text-decoration: none; color: inherit;" class="card-link">
+                <div class="card" data-card-type="pomodoro">
+                    <i class="fas fa-clock add-icon"></i>
+                    <div class="card-content">
+                        <i class="fas fa-clock card-icon"></i>
+                        <h2>Pomodoro</h2>
+                        <span class="notification-badge" data-card-target="pomodoro">0</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <script src="PaginaInicial.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,386 @@
+/* Estilos específicos para a página do Pomodoro */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+main {
+    flex-grow: 1;
+    padding: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: var(--background-color);
+    border-radius: 8px;
+}
+
+header {
+    background-color: var(--header-background-color);
+    color: var(--text-color);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between; /* Mantém o título à esquerda e o grupo de botões à direita */
+    align-items: center;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+header h1 {
+    /* Removido margin-bottom e margin-left problemáticos */
+    margin: 0; /* Garante que não haja margens extras empurrando o h1 */
+    font-size: 1.8rem;
+    color: var(--text-color); /* Garante que o título use a cor de texto principal */
+    display: flex; /* Para alinhar o ícone com o texto */
+    align-items: center;
+    gap: 8px; /* Espaçamento entre o ícone e o texto */
+    /* Removido `align-items: center;` e `margin-left: -750px;` que estavam duplicados ou incorretos */
+}
+
+/* Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--text-color); /* Garante que o título use a cor de texto principal */
+    display: flex; /* Para alinhar o ícone com o texto */
+    align-items: center;
+    gap: 8px; /* Espaçamento entre o ícone e o texto */
+}
+
+/* NOVO ESTILO: Ícone do Logo no Header */
+.header-logo-icon {
+    width: 28px; /* Tamanho do ícone */
+    height: 28px;
+    /* As cores são controladas pelo fill e stroke, que por padrão usam currentColor do pai (h1) */
+    /* Você pode sobrescrever aqui se quiser uma cor diferente da do texto do h1 */
+    fill: var(--primary-color); /* Cor de preenchimento do quadrado */
+    stroke: var(--primary-color); /* Cor da borda do quadrado */
+    transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+body.dark-mode .header-logo-icon {
+    fill: var(--primary-color);
+    stroke: var(--primary-color);
+}
+
+/* Theme Toggle Button */
+/* Theme Toggle Button */
+#theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background-color: white; /* Cor de fundo no modo CLARO */
+    color: var(--text-color); /* Cor do texto/ícone no modo CLARO (controlado pela variável) */
+    border: 1px solid var(--border-color); /* Cor da borda no modo CLARO (controlado pela variável) */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+#theme-toggle:hover {
+    background-color: #b1b1b1; /* Cor de fundo no hover (no modo CLARO) */
+    transform: translateY(-1px);
+}
+
+#theme-toggle {
+    background-color: #8A2BE2; /* Azul violeta */
+    border-color: #9370DB;
+    color: white; /* Garante que o ícone e texto fiquem brancos */
+}
+
+#theme-toggle:hover {
+    background-color: #9932CC; /* Cor ao passar o mouse */
+    border-color: #BA55D3;
+}
+
+#theme-toggle .icon {
+    width: 20px;
+    height: 20px;
+}
+
+body.dark-mode .sun-icon {
+    display: none;
+}
+
+body:not(.dark-mode) .moon-icon {
+    display: none;
+}
+
+.sun-icon {
+    color: orange;
+}
+.moon-icon {
+    color: skyblue;
+}
+
+/* NOVO BLOCO: Estilos específicos para o botão no MODO ESCURO */
+body.dark-mode #theme-toggle{
+    background-color: #4A5568; /* Cinza escuro */
+    border-color: #718096;
+    color: white;
+}
+
+/* --- Formulário de Tarefas --- */
+#task-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: var(--card-background-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    align-items: center;
+}
+
+#task-form input[type="text"],
+#task-form select {
+    flex: 1;
+    min-width: 150px;
+    padding: 12px;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    background-color: var(--input-background);
+    color: var(--text-color);
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#task-form input[type="text"]:focus,
+#task-form select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+#task-form input[type="text"]::placeholder {
+    color: var(--placeholder-color);
+}
+
+#task-form button[type="submit"] {
+    padding: 12px 20px;
+    background-color: var(--button-primary-background);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#task-form button[type="submit"]:hover {
+    background-color: var(--button-primary-hover);
+    transform: translateY(-1px);
+}
+
+.pomodoro-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--card-background-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    max-width: 500px; /* Limita a largura */
+    width: 90%;
+}
+
+.pomodoro-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.pomodoro-display {
+    font-size: 6rem; /* Ainda maior para destaque */
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    min-width: unset; /* Remove o min-width para o display global */
+    padding: 0.5rem 2rem;
+}
+
+.timer-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.pomodoro-control-button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+}
+
+.current-pomodoro-task-info {
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    color: var(--text-color-light);
+    font-weight: 600;
+    text-align: center;
+}
+
+/* --- Variáveis de Cor (Tema) --- */
+:root {
+    /* Modo Claro */
+    --background-color: #f0f2f5;
+    --text-color: #212529;
+    --text-color-light: #5a6268;
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --header-background-color: #ffffff;
+    --card-background-color: #ffffff;
+    --border-color: #ced4da;
+    --shadow-color: rgba(0,0,0,0.1);
+    --input-background: #ffffff;
+    --input-border: #adb5bd;
+    --button-primary-background: #28a745;
+    --button-primary-hover: #218838;
+    --button-secondary-background: #6c757d;
+    --button-secondary-hover: #5a6268;
+    --task-background-low: #e6ffe6;
+    --task-background-medium: #fff8e1;
+    --task-background-high: #ffebee;
+    --task-border: #e0e0e0;
+    --task-text-color: #333;
+    --modal-background: #ffffff;
+    --modal-overlay-background: rgba(0, 0, 0, 0.6);
+    --placeholder-color: #6c757d;
+    --completed-task-background: #e9ecef;
+    --completed-task-text: #868e96;
+}
+
+body.dark-mode {
+    /* Modo Escuro */
+    --background-color: #1a202c;
+    --text-color: #e2e8f0;
+    --text-color-light: #a0aec0;
+    --primary-color: #63b3ed;
+    --secondary-color: #718096;
+    --header-background-color: #2d3748;
+    --card-background-color: #2d3748;
+    --border-color: #4a5568;
+    --shadow-color: rgba(0,0,0,0.3);
+    --input-background: #4a5568;
+    --input-border: #6c757d;
+    --button-primary-background: #48bb78;
+    --button-primary-hover: #38a169;
+    --button-secondary-background: #718096;
+    --button-secondary-hover: #616e7f;
+    --task-background-low: #38a169;
+    --task-background-medium: #ecc94b;
+    --task-background-high: #e53e3e;
+    --task-border: #5a6268;
+    --task-text-color: #e2e8f0;
+    --modal-background: #2d3748;
+    --modal-overlay-background: rgba(0, 0, 0, 0.75);
+    --placeholder-color: #a0aec0;
+    --completed-task-background: #3a4556;
+    --completed-task-text: #6b7a8d;
+}
+
+/* --- Base --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    background-color: var(--header-background-color);
+    color: var(--text-color-light);
+    box-shadow: 0 -2px 4px var(--shadow-color);
+}
+
+/* ... seus estilos existentes ... */
+
+/* Estilo para o botão de voltar (pode ser o mesmo do theme-toggle) */
+#back-button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex; /* Para alinhar o ícone e o texto */
+    align-items: center;
+    gap: 8px; /* Espaçamento entre o ícone e o texto */
+    transition: background-color 0.3s ease;
+}
+
+#back-button:hover {
+    background-color: var(--button-hover-color);
+}
+
+#back-button .icon {
+    width: 20px; /* Tamanho do ícone */
+    height: 20px;
+    color: var(--button-icon-color, var(--button-text-color)); /* Cor do ícone */
+}
+
+/* Se você tiver o modo escuro, adicione estilos para ele também */
+body.dark-mode #back-button {
+    background-color: var(--dark-button-background-color);
+    color: var(--dark-button-text-color);
+}
+
+body.dark-mode #back-button:hover {
+    background-color: var(--dark-button-hover-color);
+}
+
+body.dark-mode #back-button .icon {
+    color: var(--dark-button-icon-color, var(--dark-button-text-color));
+}
+
+/* Certifique-se que o grupo de botões está bem alinhado */
+.header-buttons-group {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espaçamento entre os botões */
+}
+
+/* ... o restante do seu CSS ... */
+
+/* Estilos para o Modal de Mensagem */
+.modal-message-text {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+/* Ajustes para o botão OK do modal de mensagem */
+#message-modal-ok-button {
+    margin: 0 auto; /* Centraliza o botão OK */
+    display: block; /* Garante que o margin auto funcione */
+}

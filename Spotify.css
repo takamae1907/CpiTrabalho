@@ -1,0 +1,459 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-bg: #121212; /* Fundo principal escuro */
+    --secondary-bg: #1a1a1a; /* Fundo de seções/cards */
+    --tertiary-bg: #282828; /* Fundo de elementos interativos */
+    --text-color-primary: #ffffff; /* Texto principal branco */
+    --text-color-secondary: #b3b3b3; /* Texto secundário cinza claro */
+    --accent-color: #1DB954; /* Verde Spotify */
+    --youtube-red: #FF0000; /* Vermelho YouTube */
+    --border-radius: 8px;
+    --card-border-radius: 12px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-color-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Esconde barras de rolagem indesejadas */
+}
+
+.player-container {
+    display: flex;
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    max-width: 1200px;
+    width: 95%;
+    height: 80vh; /* Altura fixa para o container principal */
+    overflow: hidden; /* Garante que o conteúdo não vaze */
+}
+
+/* Seção Principal do Player (Esquerda) */
+.main-player {
+    flex: 2; /* Ocupa mais espaço */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    background-color: var(--secondary-bg);
+    border-right: 1px solid var(--tertiary-bg); /* Divisor visual */
+}
+
+.current-song-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 350px; /* Limita o tamanho do card da música */
+    margin-bottom: 30px;
+}
+
+.album-art {
+    width: 100%;
+    height: auto;
+    border-radius: var(--card-border-radius);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    margin-bottom: 20px;
+    object-fit: cover; /* Garante que a imagem cubra o espaço */
+    aspect-ratio: 1 / 1; /* Mantém a proporção quadrada */
+}
+
+.song-info h2 {
+    font-size: 1.8em;
+    margin: 0 0 8px 0;
+    color: var(--text-color-primary);
+    white-space: nowrap; /* Evita quebra de linha */
+    overflow: hidden; /* Esconde texto que excede */
+    text-overflow: ellipsis; /* Adiciona '...' se o texto for muito longo */
+    width: 100%;
+}
+
+.song-info p {
+    font-size: 1.1em;
+    color: var(--text-color-secondary);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.controls-section {
+    width: 100%;
+    max-width: 400px; /* Limita a largura dos controles */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo para o container do player do YouTube */
+#youtube-player-container {
+    background-color: black; /* Fundo preto para o player */
+    border-radius: var(--card-border-radius);
+    overflow: hidden; /* Garante que o vídeo não vaze */
+    margin-bottom: 20px;
+}
+#youtube-player-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+.progress-bar-container {
+    width: 100%;
+    height: 6px;
+    background-color: var(--tertiary-bg);
+    border-radius: 3px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s ease; /* Transição para opacidade */
+}
+
+.progress-bar {
+    width: 0%; /* Controlado por JS */
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 3px;
+}
+
+.time-display {
+    font-size: 0.9em;
+    color: var(--text-color-secondary);
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: var(--text-color-primary);
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.1s ease; /* Transição para a animação de clique */
+    padding: 10px;
+    border-radius: 50%; /* Para botões redondos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-btn:hover {
+    color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+/* Animação de clique para os botões de controle */
+.control-btn:active {
+    transform: scale(0.9); /* Diminui o tamanho ao ser clicado */
+}
+
+.control-btn.play {
+    font-size: 2.2em; /* Ícone de play/pause maior */
+    color: var(--accent-color);
+}
+
+.control-btn.play:hover {
+    color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color-secondary);
+    font-size: 1.1em;
+    transition: opacity 0.3s ease; /* Transição para opacidade */
+}
+
+.volume-control input[type="range"] {
+    -webkit-appearance: none; /* Remove estilo padrão do navegador */
+    width: 100px;
+    height: 4px;
+    background: var(--tertiary-bg);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+.volume-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    cursor: pointer;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Seção da Playlist (Direita) */
+.playlist-section {
+    flex: 1; /* Ocupa menos espaço */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-bg);
+    overflow-y: auto; /* Rolagem para a playlist */
+    scrollbar-width: thin; /* Para Firefox */
+    scrollbar-color: var(--accent-color) var(--tertiary-bg); /* Para Firefox */
+}
+
+.playlist-section::-webkit-scrollbar {
+    width: 8px;
+}
+
+.playlist-section::-webkit-scrollbar-track {
+    background: var(--tertiary-bg);
+    border-radius: 4px;
+}
+
+.playlist-section::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 4px;
+}
+
+.playlist-header {
+    display: flex;
+    flex-direction: column; /* Para empilhar os botões de upload */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.playlist-header h3 {
+    font-size: 1.4em;
+    margin: 0;
+    color: var(--text-color-primary);
+}
+
+.upload-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.upload-btn {
+    background-color: var(--accent-color);
+    color: var(--text-color-primary);
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+    justify-content: center; /* Centraliza o texto e ícone */
+}
+
+.upload-btn:hover {
+    background-color: #179c45; /* Tom mais escuro no hover */
+}
+
+.youtube-input-group {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.youtube-url-input {
+    flex-grow: 1;
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid var(--tertiary-bg);
+    background-color: var(--tertiary-bg);
+    color: var(--text-color-primary);
+    font-size: 0.9em;
+    outline: none;
+}
+
+.youtube-url-input::placeholder {
+    color: var(--text-color-secondary);
+}
+
+.youtube-btn {
+    background-color: var(--youtube-red); /* Cor vermelha para o botão YouTube */
+}
+
+.youtube-btn:hover {
+    background-color: #cc0000; /* Tom mais escuro no hover */
+}
+
+.playlist-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 0.95em;
+    color: var(--text-color-secondary);
+}
+
+.playlist-item:hover {
+    background-color: var(--tertiary-bg);
+}
+
+.playlist-item.active {
+    background-color: var(--tertiary-bg);
+    color: var(--text-color-primary);
+    border-left: 3px solid var(--accent-color); /* Indicador de música ativa */
+    padding-left: 12px; /* Ajusta padding por causa da borda */
+}
+
+.playlist-item span {
+    flex-grow: 1; /* Ocupa espaço disponível */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 10px; /* Espaço entre o ícone e o texto */
+}
+
+.playlist-item .duration {
+    margin-left: 15px;
+    font-size: 0.85em;
+    color: var(--text-color-secondary);
+}
+
+.playlist-item .youtube-icon {
+    color: var(--youtube-red); /* Cor do ícone do YouTube na playlist */
+}
+
+.playlist-item .local-icon {
+    color: var(--accent-color); /* Cor do ícone de música local na playlist */
+}
+
+.empty-playlist-message {
+    color: var(--text-color-secondary);
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+}
+#audio-player {
+    display: none; /* Isso esconderá o player HTML5 padrão */
+}
+/* Responsividade */
+@media (max-width: 900px) {
+    .player-container {
+        flex-direction: column; /* Pilha o player e a playlist em telas menores */
+        height: 95vh;
+        width: 90%;
+    }
+
+    .main-player {
+        border-right: none;
+        border-bottom: 1px solid var(--tertiary-bg); /* Divisor horizontal */
+        padding: 20px;
+        flex: none; /* Remove flex-grow */
+        height: 50%; /* Ocupa metade da altura */
+        justify-content: center;
+    }
+
+    .current-song-card {
+        margin-bottom: 20px;
+        max-width: 250px;
+    }
+
+    .album-art {
+        margin-bottom: 15px;
+    }
+
+    .song-info h2 {
+        font-size: 1.5em;
+    }
+
+    .song-info p {
+        font-size: 1em;
+    }
+
+    .controls-section {
+        max-width: none; /* Remove limite de largura */
+        padding-bottom: 10px; /* Espaçamento inferior */
+    }
+
+    .player-controls {
+        gap: 15px;
+    }
+
+    .control-btn {
+        font-size: 1.3em;
+    }
+
+    .control-btn.play {
+        font-size: 1.8em;
+    }
+
+    .playlist-section {
+        flex: none; /* Remove flex-grow */
+        height: 50%; /* Ocupa metade da altura */
+        padding: 15px;
+    }
+
+    .playlist-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    .upload-controls {
+        flex-direction: column; /* Empilha os botões de upload em telas menores */
+        gap: 10px;
+    }
+    .youtube-input-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .youtube-url-input, .add-youtube-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .player-container {
+        height: 100vh; /* Ocupa toda a altura em mobile */
+        border-radius: 0; /* Remove bordas arredondadas */
+    }
+    .main-player, .playlist-section {
+        height: auto; /* Altura automática */
+        flex: 1; /* Permite que ocupem o espaço disponível */
+    }
+    .main-player {
+        padding-top: 30px;
+    }
+    .song-info h2 {
+        font-size: 1.3em;
+    }
+    .song-info p {
+        font-size: 0.9em;
+    }
+    .upload-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

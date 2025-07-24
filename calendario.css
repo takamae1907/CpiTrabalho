@@ -1,0 +1,322 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #121212;
+    overflow: hidden;
+    position: relative; /* Adicionado: Essencial para posicionar o botão de voltar */
+}
+
+.background-glow {
+    position: absolute;
+    left: -150px;
+    top: -150px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.5) 0%, rgba(168, 85, 247, 0) 70%);
+    filter: blur(50px);
+    z-index: 1;
+}
+
+.app-container {
+    display: flex;
+    gap: 40px;
+    z-index: 2;
+    /* Se o back-button estiver dentro de .app-container,
+       este também precisaria de position: relative; */
+}
+
+.calendar-container {
+    width: 450px;
+    background: rgba(40, 40, 40, 0.4);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 25px 30px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.calendar-header .current-date {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.calendar-header .nav-arrow {
+    width: 38px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #aeaeae;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.nav-arrow:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.calendar-header .icons {
+    display: flex;
+    gap: 10px;
+}
+
+.calendar-body {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.calendar-body ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.calendar-body .weeks li {
+    width: calc(100% / 7);
+    font-weight: 500;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.calendar-body .days {
+    margin-top: 20px;
+}
+
+.calendar-body .days li {
+    width: calc(100% / 7);
+    margin-bottom: 15px;
+    font-weight: 300;
+    position: relative;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.days li.inactive {
+    color: #555;
+    cursor: default;
+}
+
+.days li.active {
+    font-weight: 600;
+}
+
+.days li::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    z-index: -1;
+    transition: background-color 0.3s;
+}
+
+.days li:hover::before {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.days li.active::before {
+    background-color: #e85353;
+}
+
+/* Círculo de aviso para dias com lembrete */
+.days li.has-reminder::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: #53a3e8;
+    border-radius: 50%;
+}
+
+/* Área de notas */
+.note-area {
+    width: 300px;
+    padding: 25px;
+    background: rgba(40, 40, 40, 0.4);
+    border-radius: 16px;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#note-title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#note-body {
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: 300;
+    color: #ccc;
+    white-space: pre-wrap; /* Mantém as quebras de linha do texto */
+}
+
+/* Estilos do Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: #2a2a2a;
+    padding: 30px;
+    border-radius: 16px;
+    width: 400px;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-content h3 {
+    font-size: 1.5rem;
+}
+
+.modal-content p {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+#reminder-text {
+    width: 100%;
+    height: 120px;
+    background: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 10px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    resize: none;
+    margin-bottom: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+#save-reminder {
+    background-color: #53a3e8;
+    color: #fff;
+}
+#save-reminder:hover { background-color: #4a92d0; }
+
+#delete-reminder {
+    background-color: #e85353;
+    color: #fff;
+}
+#delete-reminder:hover { background-color: #d04a4a; }
+
+#close-modal {
+    background-color: #555;
+    color: #fff;
+}
+#close-modal:hover { background-color: #444; }
+
+/* Estilo para o botão de voltar */
+#back-button {
+    background-color: #d8d8d8;
+    color: var(--button-text-color, #333); /* Usar uma fallback caso a variável não exista */
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex; /* Para alinhar o ícone e o texto */
+    align-items: center;
+    gap: 8px; /* Espaçamento entre o ícone e o texto */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Adicionado box-shadow na transição */
+
+    /* Posicionamento absoluto no canto superior esquerdo */
+    position: absolute;
+    left: 1.5rem; /* Distância da borda esquerda */
+    top: 1.5rem;  /* Distância da borda superior */
+    z-index: 10; /* Garante que fique acima de outros elementos */
+}
+
+#back-button:hover {
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(18, 18, 18, 0.2); /* Corrigido: Adiciona uma sombra funcional */
+}
+
+#back-button .icon {
+    width: 20px; /* Tamanho do ícone */
+    height: 20px;
+    color: var(--button-icon-color, var(--button-text-color, #333)); /* Cor do ícone com fallbacks */
+}
+
+/* Certifique-se que o grupo de botões está bem alinhado */
+/* Nota: Este seletor pode não ser relevante se o back-button não estiver neste grupo */
+.header-buttons-group {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espaçamento entre os botões */
+}
+
+/* Estilos para o Modal de Mensagem */
+.modal-message-text {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+/* Ajustes para o botão OK do modal de mensagem */
+#message-modal-ok-button {
+    margin: 0 auto; /* Centraliza o botão OK */
+    display: block; /* Garante que o margin auto funcione */
+}

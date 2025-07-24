@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário de Lembretes</title>
+    <link rel="stylesheet" href="calendario.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon_io/android-chrome-512x512.png">
+</head>
+<body>
+
+    <div class="background-glow"></div>
+    
+
+    <main class="app-container">
+         <div class="header-buttons-group">
+            <button id="back-button" aria-label="Voltar">
+                <svg class="icon arrow-left-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5"></path>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span class="button-text">Voltar</span>
+            </button>
+     </div> 
+        <div class="calendar-container">
+            <header class="calendar-header">
+                <p class="current-date"></p>
+                <div class="icons">
+                    <span id="prev" class="nav-arrow">&lt;</span>
+                    <span id="next" class="nav-arrow">&gt;</span>
+                </div>
+            </header>
+            <div class="calendar-body">
+                <ul class="weeks">
+                    <li>DOM</li>
+                    <li>SEG</li>
+                    <li>TER</li>
+                    <li>QUA</li>
+                    <li>QUI</li>
+                    <li>SEX</li>
+                    <li>SÁB</li>
+                </ul>
+                <ul class="days">
+                    </ul>
+            </div>
+        </div>
+
+        <div class="note-area">
+            <h2 id="note-title">Lembretes</h2>
+            <p id="note-body">Clique em um dia para ver ou adicionar um lembrete.</p>
+        </div>
+    </main>
+
+    <div id="reminder-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Adicionar Lembrete</h3>
+            <p id="modal-date"></p>
+            <textarea id="reminder-text" placeholder="Escreva seu lembrete aqui..."></textarea>
+            <div class="modal-actions">
+                <button id="save-reminder">Salvar</button>
+                <button id="delete-reminder">Excluir</button>
+                <button id="close-modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="calendario.js"></script>
+</body>
+</html>
